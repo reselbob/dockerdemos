@@ -46,3 +46,6 @@ docker history goodwrapper
 docker inspect goodwrapper
 
 docker run -it goodwrapper ls -lh
+
+#But, where are the result files?
+docker run -v /root/dockerdemos/wordswapper:/app badwrapper

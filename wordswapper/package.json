@@ -1,0 +1,11 @@
+{
+  "name": "wordswapper",
+  "version": "1.0.0",
+  "description": "Simple program that subsitutes thew word, cheese, for every word in a file",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,48 @@
+git clone https://github.com/reselbob/dockerdemos.git
+
+cd dockerdemos/wordswapper/
+
+#fresh
+time docker build -t badwrapper -f Dockerfile_bad .
+
+real    0m9.332s
+user    0m0.032s
+sys     0m0.040s
+
+#using the local cache
+time docker build -t badwrapper -f Dockerfile_bad .
+
+real    0m0.133s
+user    0m0.032s
+sys     0m0.004s
+
+docker images
+
+docker history badwrapper
+
+docker inspect badwrapper
+
+docker run -it badwrapper ls -lh
+
+#fresh
+time docker build -t goodwrapper -f Dockerfile_good .
+
+real    0m12.158s
+user    0m0.040s
+sys     0m0.016s
+
+
+#cache in place
+time docker build -t goodwrapper -f Dockerfile_good .
+
+real    0m0.150s
+user    0m0.024s
+sys     0m0.020s
+
+docker images
+
+docker history goodwrapper
+
+docker inspect goodwrapper
+
+docker run -it goodwrapper ls -lh

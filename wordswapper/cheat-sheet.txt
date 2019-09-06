@@ -2,6 +2,9 @@ git clone https://github.com/reselbob/dockerdemos.git
 
 cd dockerdemos/wordswapper/
 
+#fresh no cache
+time docker build -t badwrapper -f  --no-cache Dockerfile_bad .
+
 #fresh
 time docker build -t badwrapper -f Dockerfile_bad .
 
@@ -47,5 +50,8 @@ docker inspect goodwrapper
 
 docker run -it goodwrapper ls -lh
 
+#Take out the container after it runs
+docker run --rm -it goodwrapper ls -lh
+
 #But, where are the result files?
-docker run -v /root/dockerdemos/wordswapper:/app badwrapper
+docker run -v /root/dockerdemos/wordswapper:/app goodwrapper

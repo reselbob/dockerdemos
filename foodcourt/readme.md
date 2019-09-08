@@ -37,7 +37,9 @@ const sample = (items) => {return items[Math.floor(Math.random()*items.length)];
     const service = sample(services);
 
     http.get(`http://${service}:3000`, (resp) => {
-    
+
+//the code goes on....
+
 ```
 Notice that `${service}` is a variable that refers to a DNS name. The DNS name is a string that's extracted from the array, `services`.
 The values in the array, `services` correspond to the service names defined in the 

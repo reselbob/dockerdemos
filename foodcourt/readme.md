@@ -44,3 +44,10 @@ const sample = (items) => {return items[Math.floor(Math.random()*items.length)];
 Notice that `${service}` is a variable that refers to a DNS name. The DNS name is a string that's extracted from the array, `services`.
 The values in the array, `services` correspond to the service names defined in the 
 `docker-compose.yaml` file which you can view [here](docker-compose.yaml).
+
+## Checking It Out
+
+Once `docker-compose` is up and running, try the following `curl` command to observe how behavior
+changes each time a call is made to the service.
+
+`for i in {1..20}; do curl localhost:4000 -w "\n"; done`

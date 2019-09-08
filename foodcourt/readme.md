@@ -5,7 +5,7 @@ internal DNS naming provides.
 
 ## Start up
 
-`docker-compose -d up`
+`docker-compose up`-d
 
 ## Discussion
 

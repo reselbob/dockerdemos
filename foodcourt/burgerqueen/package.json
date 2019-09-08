@@ -1,0 +1,17 @@
+{
+  "name": "burgerqueen",
+  "version": "1.0.0",
+  "description": "An app that is part of a docker compose demonstration",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Bob Reselman <reselbob@gmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "supertest": "^4.0.2"
+  }
+}

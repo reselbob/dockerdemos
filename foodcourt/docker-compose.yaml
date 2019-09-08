@@ -16,6 +16,8 @@ services:
     build: ./hobos
     ports:
       - "4002:3000"
+    networks:
+      - westfield_mall
   iowafried:
     build: ./iowafried
     ports:

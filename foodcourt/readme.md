@@ -17,15 +17,15 @@ You'll notice in the file `docker-compose.yaml` defines four services:
 * iowafried
 
 Each of these represents an HTTP server that returns a random order. For example, `bugerqueen` sells items called
-`burger`, `fries`, `whooper`, `onion rings`. When the server is called, one of these items is return at random.
+`burger`, `fries`, `whooper`, `onion rings`. When the server is called, one of these items is returned at random.
 
 All the restaurants, `burgerqueen`, `hobos` and `iowafried` work in a similar manner. Each restaurant has its own set of menu items.
 
-The service, `customer` calls one of the restaurants at random and requests a menu item. Then, a random menu item will be returned
-according to restaurant.
+The service, `customer` calls one of the restaurants at random and requests a menu item. Then, a random menu item is returned
+according to the restaurant's menu items.
 
-So, what does all of this have to do with implicit DNS naming that `docker-compose` provides? The relevance is in the way\
-that `[customer](customer/index.js)` accesses  the service. Look at the following code:
+So, what does all of this have to do with implicit DNS naming that `docker-compose` provides? The relevance is in the way
+that `[customer](customer/index.js)` accesses the service. Look at the following code:
 
 ```javascript
 const services = ['burgerqueen', 'hobos', 'iowafried'];

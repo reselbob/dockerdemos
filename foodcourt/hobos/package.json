@@ -4,8 +4,13 @@
   "description": "An app that is part of a docker compose demonstration",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "mocha test"
   },
   "author": "Bob Reselman <reselbob@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "supertest": "^4.0.2"
+  }
 }

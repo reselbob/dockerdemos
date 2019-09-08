@@ -1,6 +1,7 @@
 const http = require('http');
 const port = process.env.APP_PORT || 4002;
 
+const restaurant = 'Howard Bonsons';
 
 const foods = ['fried shrimp', 'grilled cheese', 'double burger', 'soda and fries']
 
@@ -16,11 +17,11 @@ const handleRequest = (request, response)  => {
 
 const server = http.createServer(handleRequest);
 server.listen(port, () => {
-    console.log(`H API Server is listening on port ${port}`);
+    console.log(`${restaurant} API Server is listening on port ${port}`);
 });
 
 const shutdown = () => {
-    console.log(`BurgerQueen API Server shutting down at ${new Date()}`);
+    console.log(`${restaurant} API Server shutting down at ${new Date()}`);
     server.close();
 };
 

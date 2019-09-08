@@ -4,7 +4,7 @@
   "description": "An app that is part of a docker compose demonstration",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "mocha test"
   },
   "author": "Bob Reselman <reselbob@gmail.com>",
   "license": "MIT",

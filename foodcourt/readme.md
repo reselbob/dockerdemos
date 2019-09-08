@@ -24,8 +24,8 @@ All the restaurants, `burgerqueen`, `hobos` and `iowafried` work in a similar ma
 The service, `customer` calls one of the restaurants at random and requests a menu item. Then, a random menu item is returned
 according to the restaurant's menu items.
 
-So, what does all of this have to do with implicit DNS naming that `docker-compose` provides? The relevance is in the way
-that [`customer`](customer/index.js) accesses the service. Look at the following code:
+So, what does all of this have to do with the implicit DNS naming that `docker-compose` provides? The relevance is in the way
+that [`customer`](customer/index.js) accesses the given service. Look at the following code:
 
 ```javascript
 const services = ['burgerqueen', 'hobos', 'iowafried'];

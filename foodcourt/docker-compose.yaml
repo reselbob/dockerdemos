@@ -1,0 +1,26 @@
+version: '3'
+services:
+  customer:
+    build: ./customer
+    ports:
+      - "4000:3000"
+    networks:
+      - westfield_mall
+  burgerqueen:
+    build: ./burgerqueen
+    ports:
+      - "4001:3000"
+    networks:
+      - westfield_mall
+  hobos:
+    build: ./hobos
+    ports:
+      - "4002:3000"
+  iowafried:
+    build: ./iowafried
+    ports:
+      - "4003:3000"
+    networks:
+      - westfield_mall
+networks:
+  westfield_mall:

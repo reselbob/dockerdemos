@@ -1,5 +1,5 @@
 const http = require('http');
-const port = process.env.APP_PORT || 4002;
+const port = process.env.APP_PORT || 3000;
 
 const restaurant = 'Howard Bonsons';
 
@@ -9,7 +9,7 @@ const sample = (items) => {return items[Math.floor(Math.random()*items.length)];
 
 const handleRequest = (request, response)  => {
     const order = sample(foods) ;
-    const str = JSON.stringify({order});
+    const str = JSON.stringify({restaurant,order});
     response.setHeader("Content-Type", "application/json");
     response.writeHead(200);
     response.end(str);

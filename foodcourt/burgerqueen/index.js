@@ -1,5 +1,5 @@
 const http = require('http');
-const port = process.env.APP_PORT || 4001;
+const port = process.env.APP_PORT || 3000;
 
 const restaurant = 'Burger Queen';
 

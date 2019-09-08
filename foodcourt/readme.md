@@ -25,7 +25,7 @@ The service, `customer` calls one of the restaurants at random and requests a me
 according to the restaurant's menu items.
 
 So, what does all of this have to do with implicit DNS naming that `docker-compose` provides? The relevance is in the way
-that `[customer](customer/index.js)` accesses the service. Look at the following code:
+that [`customer`](customer/index.js) accesses the service. Look at the following code:
 
 ```javascript
 const services = ['burgerqueen', 'hobos', 'iowafried'];

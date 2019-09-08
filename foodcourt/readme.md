@@ -1,6 +1,6 @@
 # Food Court
 
-The purpose of this project is to demonstrate the internal DNS naming and implicit service discovery that `docker-compose`
+The purpose of this project is to demonstrate the implicit service discovery that `docker-compose`
 internal DNS naming provides.
 
 ## Start up

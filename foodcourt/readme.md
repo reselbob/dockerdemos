@@ -39,6 +39,6 @@ const sample = (items) => {return items[Math.floor(Math.random()*items.length)];
     http.get(`http://${service}:3000`, (resp) => {
     
 ```
-Notice that `${service}` is a variable that refers to a DNS name. The DNS name is extracted from the array, `services`.
+Notice that `${service}` is a variable that refers to a DNS name. The DNS name is a string that's extracted from the array, `services`.
 The values in the array, `services` correspond to the service names defined in the 
 `docker-compose.yaml` file which you can view [here](docker-compose.yaml).

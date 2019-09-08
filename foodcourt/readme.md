@@ -9,7 +9,7 @@ internal DNS naming provides.
 
 ## Discussion
 
-You'll notice in the file [`docker-compose.yaml`]((docker-compose.yaml)) defines four services:
+You'll notice in the file [`docker-compose.yaml`](docker-compose.yaml) defines four services:
 
 * customer
 * burgerqueen

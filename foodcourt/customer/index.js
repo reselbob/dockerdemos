@@ -39,13 +39,28 @@ const handleRequest = (request, response)  => {
 };
 
 const server = http.createServer(handleRequest);
+
 server.listen(port, () => {
     console.log(`${customer} API Server is listening on port ${port}`);
 });
 
-const shutdown = () => {
-    console.log(`${customer} API Server shutting down at ${new Date()}`);
-    server.close();
+
+const shutdown = (signal) => {
+    if(!signal){
+        console.log(`${customer} API Server shutting down at ${new Date()}`);
+    }else{
+        console.log(`Signal ${signal} : ${customer} API Server shutting down at ${new Date()}`);
+    }
+    server.close(function () {
+        process.exit(0);
+    })
 };
+process.on('SIGTERM', function () {
+    shutdown('SIGTERM');
+});
+
+process.on('SIGINT', function () {
+    shutdown('SIGINT');
+});
 
 module.exports = {server,shutdown};

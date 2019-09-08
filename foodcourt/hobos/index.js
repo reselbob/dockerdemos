@@ -7,22 +7,32 @@ const foods = ['fried shrimp', 'grilled cheese', 'double burger', 'soda and frie
 
 const sample = (items) => {return items[Math.floor(Math.random()*items.length)];};
 
-const handleRequest = (request, response)  => {
+const shutdown = (signal) => {
+    if(!signal){
+        console.log(`${restaurant} API Server shutting down at ${new Date()}`);
+    }else{
+        console.log(`Signal ${signal} : ${restaurant} API Server shutting down at ${new Date()}`);
+    }
+    server.close(function () {
+        process.exit(0);
+    })
+};
+
+const server = http.createServer((request, response) => {
     const order = sample(foods) ;
-    const str = JSON.stringify({restaurant,order});
+    const str = JSON.stringify({restaurant, order});
     response.setHeader("Content-Type", "application/json");
     response.writeHead(200);
     response.end(str);
-};
-
-const server = http.createServer(handleRequest);
-server.listen(port, () => {
-    console.log(`${restaurant} API Server is listening on port ${port}`);
+}).listen(port, (err) => {
+    console.log(`${restaurant} API Server is started on ${port}  at ${new Date()} with pid ${process.pid}`);
 });
 
-const shutdown = () => {
-    console.log(`${restaurant} API Server shutting down at ${new Date()}`);
-    server.close();
-};
+process.on('SIGTERM', function () {
+    shutdown('SIGTERM');
+});
 
-module.exports = {server,shutdown};
+process.on('SIGINT', function () {
+    shutdown('SIGINT');
+});
+

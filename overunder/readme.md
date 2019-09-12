@@ -95,7 +95,7 @@ home/over-under
 ├── upper
 │   └── upper1.txt
 └── working
-    └── work
+    └── working
 ```
 
 **Step 10:** Add another line of text to the file, `lower/lower1.txt`
@@ -180,7 +180,7 @@ You should see something like the following:
 │   ├── lower1.txt
 │   └── upper1.txt
 └── working
-    └── work
+    └── working
 ```
 Notice that the file `./merged/lower.txt` has been deleted, but that `./lower/lower1.txt` remains.
 

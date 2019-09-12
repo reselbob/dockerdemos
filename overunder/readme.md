@@ -1,7 +1,7 @@
 # Over Under
 
-The purpose of this project is to demonstrate Linux overlay filesystem. The Linux overlay filesystem is a precursor
-to Docker layers.
+The purpose of this project is to demonstrate the Linux overlay filesystem. The Linux overlay filesystem is a precursor
+upon which the concept and implementation of Docker layers is built.
 
 An overlay sits on top of an existing filesystem. When you do a overlay, you combine an upper and a lower
 directory tree (which can be from different filesystems) which results in a unified representation of

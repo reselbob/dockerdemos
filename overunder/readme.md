@@ -10,7 +10,7 @@ treatment depends on the object type.
 
 If the upper directory has a file with the same name as one in the lower directory, the the file in the lower
 directory will be hidden. Otherwise, the contents of each directory object are merged to create a
-combined directory object in the overlay
+combined directory object in the overlay.
 
 ## Syntax
 
@@ -20,20 +20,25 @@ combined directory object in the overlay
 
 `mount` is the linux command that executes the overlay
 
-`-t overlay` indicates the type of the mount, in this case it is a `overlay`
+`-t overlay` indicates the type of the mount, in this case it's an `overlay`
 
-`-o` indicates the option parameters for the moujnt
+`-o` indicates the option parameters for the mount
 
-`lowerdir=./lower` indicates the location of the upper `read-write` directory on the host filesystem
+`lowerdir=./lower` indicates the location of the upper `read-write` directory on the host filesystem.
+In this case the `lowerdir` is `./lower`.
 
-`upperdir=./upper` indicates the location of the lower `read-only` directory on the host filesystem
+`upperdir=./upper` indicates the location of the lower `read-only` directory on the host filesystem.
+In this case the `upperdir` is `./upper`.
 
 `workdir=./working` is required option. The working directory is used to prepare files before they are switched
-to the overlay destination in an atomic action. (The `workdi`r needs to be on the same filesystem as the `upperdir`.)
+to the overlay destination in an atomic action. (The `workdir` needs to be on the same filesystem as the `upperdir`.)
 
-`overlay ./merged` indicates the directory in which the entire overlay will be realized
+`overlay ./merged` indicates the directory in which the entire overlay will be realized.
 
 ## Implementation
+
+The following steps describe how to create a filesystem overlay. Also, there are steps that provide analytic review
+relevant to understanding the concepts behind a filesystem overlay.
 
 **Step 1:** Set the user to super user. (Only the users with `root` persmissions can do an overaly.)
 
@@ -153,7 +158,7 @@ I am another line in lower 1
 You are now observing the mechanics of the file system overlay. Remember in Step 14 you made a 
 change to the file in the `merged` directory. The directory `merged` represents the result of the 
 file system overlay. Any change made to the file, `./merged/lower1.txt will` will have NO impact on 
-`./lower/lower.txt` because the directory `./lower` the `read-only` directory in the overlay.
+`./lower/lower1.txt` because the directory `./lower` is the `read-only` directory i the overlay.
 
 **Step 16:** Now, let's go one step further. Let's delete the file, `lower1.txt` in the directory `./merged`.
 

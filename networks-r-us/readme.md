@@ -38,9 +38,13 @@ You will get output the looks similar to :
 
 Let's create a simple container using the option, `--net none`
 
+**Step 2:** First, we'll build a container based on the accompanying Dockerfile.
+
+`docker build -t nettystuff .`
+
 **Step 2:** Execute the following command on the host
 
-`docker run -d --name myubuntu --net none ubuntu`
+`docker run -it --net none nettystuff /bin/bash`
 
 **Step 3:** Get the ID of the container
 

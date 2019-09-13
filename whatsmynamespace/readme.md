@@ -2,16 +2,16 @@
 
 **UNDER CONSTRUCTION**
 
-The purpose of this project is to demonstrate [namespace](http://man7.org/linux/man-pages/man7/namespaces.7.html) isolation. In this project we
-are going to create a new namespace and the make a change to the hostname. (The change will
-affect the namespace type, `UTS`.) Because the hostname change has occurred in the new namespace,
+The purpose of this project is to demonstrate Linux [namespace](http://man7.org/linux/man-pages/man7/namespaces.7.html) isolation. In this project we
+are going to create a new namespace and then make a change to the hostname. (The change will
+affect the namespace type, `UTS`.) Because the hostname change has occurred in the newly created namespace,
 it will only be visible within the new namespace.
 
 **Step 1:** Make the current user a super user:
 
 `sudo su -`
 
-**Step 2:** Create a new namespace of type `UTS`
+**Step 2:** Create a new namespace of type [`UTS`](https://unix.stackexchange.com/questions/183717/whats-a-uts-namespace#183722).
 
 `unshare -u bash`
 
@@ -19,7 +19,7 @@ it will only be visible within the new namespace.
 
 * [`unshare`](https://www.commandlinux.com/man-page/man1/unshare.1.html) is the command that creates a new namespace
 separate from the parent namespace
-* `-u` is an option that indicates that the new namespace will associated with the [resource namespace](http://man7.org/linux/man-pages/man7/namespaces.7.html), 
+* `-u` is an option that indicates that the new namespace is to be associated with the [resource namespace](http://man7.org/linux/man-pages/man7/namespaces.7.html), 
 [UTS](https://windsock.io/uts-namespace/) (UNIX Timesharing System)
 * `bash` is the program to run in the newly created namespace
 
@@ -68,7 +68,7 @@ Keep track of this number.
 `uname -n`
 
 It will be the same name as the one the was originally displayed in the first terminal window before we created
-the new hostname. This makes sense because the new terminal opened in the default (parent) namespace.
+the new namespace and the new hostname. This makes sense because the new terminal opened in the default (parent) namespace.
 
 **Step 9:** Get the namespace id associated with the new terminal's current process in terms of the UTS resource namespace
 
@@ -105,13 +105,13 @@ As you can see the namespace IDs for `uts` are different while the IDs for `net`
 The resource namespace `UTS` has "jurisdiction" over Hostname and NIS domain name activity. The resource namespace,
 `NETWORK` encompasses network devices, stacks, ports, etc.
 
-This can be mystifying to those new to low level Linux stuff. The important thing to understand we created the
+This can be mystifying to those new to low level Linux stuff. The important thing to understand we created a
 new namespace using the `unshare` command and then right after that created a new `hostname`. Creating the new hostname 
-affects the `UTC` resource namespace. The new namespace is then associate to the `UTC` resource namespace, hence the 
+affects the `UTC` resource namespace. The new namespace is then associated with the `UTC` resource namespace, hence the 
 different ID.
 
-However, when we created the new namespace using `unshare` we executed **NO** commands associated with with networking.
-Thus, the both the new namespace and the original namespace share the same `NETWORK` resource namespace identifier.
+However, when we created the new namespace using `unshare` we executed **NO** commands associated with networking.
+Thus, both the new namespace and the original namespace share the same namespace associated with the `NETWORK` resource namespace.
 
-Is this confusing? Yes, it is. The important thing to understand is that namespaces provide a way to isolate activities
-in a host from one another.
+Is this confusing? Yes, it is. The important thing to understand is that namespaces provide a way to isolate activities from one another
+in the same Linux host.

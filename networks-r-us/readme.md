@@ -38,16 +38,14 @@ You will get output the looks similar to :
 
 Let's create a simple container using the option, `--net none`
 
-**Step 2:** First, we'll build a container based on the accompanying Dockerfile.
 
-`docker build -t nettystuff .`
 
-**Step 3:** Execute the following command to navigate into a container and arrive
+**Step 2:** Execute the following command to navigate into a container and arrive
 at a command prompt
 
-`docker run -it --net none nettystuff /bin/bash`
+`docker run -it --net none alpine /bin/sh`
 
-**Step 4:** Get some network information about the container
+**Step 3:** Get some network information about the container
 
 `ifconfig`
 
@@ -66,7 +64,7 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
 Makes sense because the option, `--net node` declares that the container should have no network
 interface to the outside world.
 
-**Step 5:** Let's see if we can get to the outside world by pinging Google's IP address. Execute:
+**Step 4:** Let's see if we can get to the outside world by pinging Google's IP address. Execute:
 
 `ping 8.8.8.8`
 
@@ -76,7 +74,7 @@ You should get something similar to the following:
 
 Again, it makes sense because the option `--net none` denies the container access to the outside world.
 
-**Step 6:** Exit out of the container
+**Step 5:** Exit out of the container
 
 `exit`
 
@@ -87,7 +85,7 @@ This part of the demo shows you how to create a bridged network.
 **Step 1:** Execute the following command to navigate into a container and arrive
 at a command prompt
 
-`docker run -it --net bridge nettystuff /bin/bash`
+`docker run -it --net bridge alpine /bin/sh`
 
 **Step 2:** Get some network information about the container
 
@@ -167,6 +165,7 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
 ```
 
 Notice that network interface, `docker0`. That's the bridge.
+
 
 ## Shared
 
@@ -342,9 +341,13 @@ lo        Link encap:Local Loopback
           RX bytes:59664 (58.2 KiB)  TX bytes:59664 (58.2 KiB)
 ```
 
-Notice that the host network inteface as cascade into the contiainer like so:
+Notice that the host network inteface is exposed inexit the contiainer like so:
 
 ```text
 enp0s3    Link encap:Ethernet  HWaddr 08:00:27:F4:03:72
           inet addr:192.168.86.217  Bcast:192.168.86.255  Mask:255.255.255.0
 ```
+
+**Step 5:** Exit the container
+
+`exit`

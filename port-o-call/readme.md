@@ -117,11 +117,11 @@ While we're inside the container, let's try to access port 83 and see what happe
 
 We'll still get an error similar to the one we had when we were tyrin get access outside the container.
 
-**Step 7:** .Let's clean things up. First exit the container,
+**Step 7:** .Let's clean things up. First exit the container.
 
 `exit`
 
-Then once back at the host's command line, let's delete the container,
+Then once back at the host's command line, let's delete the container.
 
 `docker rm -f mynginx`
 

@@ -93,9 +93,9 @@ In this case Docker assigned a random host port number to the container's port 8
 
 `curl localhost:32769
 
-You'll get an error, `curl: (7) Failed to connect to localhost port 32769: Connection refused`.
+You'll get an error, `curl: (56) Recv failure: Connection reset by peer`.
 
-Why? Because there is nothing listening on port 83 and in any case it's not exposed. Still, let's navigate into the congtainer and try to run on port 80.
+Why? Because there is nothing in the container listening on port 83 nor does the nginx image expose port 83. Still, let's navigate into the congtainer and try to run on port 80.
 
 **Step 4:** Navigate into the shell of the container, `mynginx`.
 

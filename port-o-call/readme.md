@@ -115,7 +115,7 @@ While we're inside the container, let's try to access port 83 and see what happe
 
 `curl localhost:83`
 
-We'll still get the same error we had when we were tyrin get access outside the container.
+We'll still get an error similar to the one we had when we were tyrin get access outside the container.
 
 **Step 7:** .Let's clean things up. First exit the container,
 

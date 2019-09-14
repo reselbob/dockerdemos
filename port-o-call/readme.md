@@ -91,7 +91,7 @@ In this case Docker assigned a random host port number to the container's port 8
 
 **Step 3:** Try to access the container using the randomly assigned port number.
 
-`curl localhost:32769
+`curl localhost:32769`
 
 You'll get an error, `curl: (56) Recv failure: Connection reset by peer`.
 
@@ -117,7 +117,7 @@ While we're inside the container, let's try to access port 83 and see what happe
 
 We'll still get an error similar to the one we had when we were tyrin get access outside the container.
 
-**Step 7:** .Let's clean things up. First exit the container.
+**Step 7:** Let's clean things up. First exit the container.
 
 `exit`
 

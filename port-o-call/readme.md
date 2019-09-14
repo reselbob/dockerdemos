@@ -103,7 +103,7 @@ Why? Because there is nothing in the container listening on port 83 nor does the
 
 **Step 5:** Once in the container we'll need to install `curl`. It's not part of the `nginx` image. Execute the following commands to install curl:
 
-``apt update && apt install curl -y`
+`apt update && apt install curl -y`
 
 **Step 6:** Now, `curl` against `localhost:80`
 

@@ -87,13 +87,13 @@ You'll get output similar to the following:
 CONTAINER ID        IMAGE                   COMMAND                  CREATED             STATUS              PORTS                                              NAMES
 1f0b08a899ca        nginx:latest            "nginx -g 'daemon of…"   14 seconds ago      Up 11 seconds       80/tcp, 0.0.0.0:32769->83/tcp 
 ```
-In this case Docker assigned a random host port number to the container's port 83. Also, Docker is reporting that the contianer has an external port number, 80.
+In this case Docker assigned a random host port number to the container's port 83. Also, Docker is reporting that the container has an external port number, 80.
 
 **Step 3:** Try to access the container using the randomly assigned port number.
 
-`curl localhost:83
+`curl localhost:32769
 
-You'll get an error, `curl: (7) Failed to connect to localhost port 83: Connection refused`.
+You'll get an error, `curl: (7) Failed to connect to localhost port 32769: Connection refused`.
 
 Why? Because there is nothing listening on port 83 and in any case it's not exposed. Still, let's navigate into the congtainer and try to run on port 80.
 

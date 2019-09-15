@@ -1,7 +1,101 @@
 # Groupies
 
-The purpose of this project is to demonstrate various aspects of Linx `cgroup` in preparation to understanding
-the underlying isolation technologies in Docker.
+**UNDER CONSTUCTION**
+
+The purpose of this project is to demonstrate various aspects of Linux `cgroup` in terms of direct use under Docker and
+also at a lower level in terms of the Linux operating system.
+
+## At the Container Level
+
+We're going to install a docker container that does nothing more than eating memory on demand. It's
+will user the Docker image [julman99/eatmemory](https://hub.docker.com/r/julman99/eatmemory). We'll get the container up and running
+according to a memory limit parameter. Then, well go inside the container make some memory demands within and outside of the 
+declared memory limit.
+
+**Step 1:** Get the container up and running
+
+`docker run -d --memory 50m --name hungry_container julman99/eatmemory 40M`
+
+**WHERE**
+
+* `docker run` is the command set we'll use to invoke the container
+* `-d` is the option that makes the container run as a daemon in the background
+* `--memory 50M` is the option to set the memory limit of the container. Is this case we'll set a memory
+limit of 50 megabytes (`50MB`)
+* `--name hungry_container` is the option to name the container, in this case `hungry_container`
+* `julman99/eatmemory` is the container image well use, pulled from DockerHub
+* `40M` Does an initial "memory eat" of 40MB
+
+Let's take a look at the how the container is coping with the memory demand:
+
+`docker stats --no-stream=true hungry_container`
+
+You'll output the looks similar to the following:
+
+```text
+CONTAINER ID      NAME              CPU %     MEM USAGE / LIMIT   MEM %          NET I/O        BLOCK I/O      PIDS
+47c342943e18      hungry_container  0.00%     41.65MiB / 50MiB    83.30%         6.4kB / 90B    0B / 0B        1
+```
+You can see we're up against the memory limit of the container, but haven't gone overboard.
+
+The important thing to remember here is that the memory limit we've set for the running container is `50MB`.
+
+**Step 2:** Navigate into the running container
+
+`docker exec -it hungry_container /bin/sh`
+
+**Step 3:** Do some memory eating from within the container. First eat `10 MB`.
+
+`eatmemory 10 MB`
+
+You'll get output similar to the following:
+
+```text
+Currently total memory: 2095968256
+Currently avail memory: 150065152
+Eating 10485760 bytes in chunks of 1024...
+Done, press any key to free the memory
+```
+
+Press a key.
+
+You're doing just fine.
+
+**Step 4:*** Now let's go beyond the memory limit:
+
+`eatmemory 60M`
+
+Things won't go so well. You'll get output similar to the following:
+
+```text
+Currently total memory: 2095968256
+Currently avail memory: 153452544
+Eating 62914560 bytes in chunks of 1024...
+Killed
+```
+You're in trouble. Why? Because you're trying to eat `60MB` of memory while the allocation is for a limit of `50MB`.
+
+**Step 5:*** Let's try again with a memory amount that is beneath the memory limit.
+
+`eatmemory 49MB`
+
+You'll get output similar to the following:
+
+```text
+Currently total memory: 2095968256
+Currently avail memory: 190251008
+Eating 51380224 bytes in chunks of 1024...
+Done, press any key to free the memory
+```
+
+We're back in good graces. Things are better now.
+
+**NOTE**: In some environments having the container running `eatmemory` 
+to go over the memory limit will cause the container to crash. This is OK. Basically the 
+container is saying, _"You're ask for more memory than I'm allocated to give so I am going to
+complain. Hey, I might even blow up!"_
+
+## At the Linux Level
 
 **Step 1:** Become the super user
 

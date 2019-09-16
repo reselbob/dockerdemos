@@ -91,9 +91,9 @@ Done, press any key to free the memory
 We're back in good graces. Things are better now.
 
 **NOTE**: In some environments having the container running `eatmemory` 
-to go over the memory limit will cause the container to crash. This is OK. Basically the 
-container is saying, _"You're ask for more memory than I'm allocated to give so I am going to
-complain. Hey, I might even blow up!"_
+to go over the memory limit will cause the container to crash. Also in some cases
+the docker engine will only write memory to the declared limite. This is OK. Basically the 
+container is saying, _"You're ask for more memory than I'm allocated to give so I am going to complain. Or, I might only go the the limit. Hey, I might even blow up!"_
 
 ## At the Linux Level
 

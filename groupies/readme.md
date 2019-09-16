@@ -117,7 +117,7 @@ You'll get output similar to the following:
 ```
 In the output above you can see that the long `Id` is in the first line.
 
-**Step 7:*  In a default Linux installation the `cgroup` memory declaration for container can be found at:
+**Step 7:**  In a default Linux installation the `cgroup` memory declaration for container can be found at:
 
 `/sys/fs/cgroup/memory/docker/CONTAINER_ID`
 

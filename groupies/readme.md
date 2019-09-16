@@ -14,13 +14,13 @@ declared memory limit.
 
 **Step 1:** Get the container up and running
 
-`docker run -d --memory 50m --name hungry_container julman99/eatmemory 40M`
+`docker run -d --memory 400m --name hungry_container julman99/eatmemory 40M`
 
 **WHERE**
 
 * `docker run` is the command set we'll use to invoke the container
 * `-d` is the option that makes the container run as a daemon in the background
-* `--memory 50M` is the option to set the memory limit of the container. Is this case we'll set a memory
+* `--memory 400m` is the option to set the memory limit of the container. Is this case we'll set a memory
 limit of 50 megabytes (`50MB`)
 * `--name hungry_container` is the option to name the container, in this case `hungry_container`
 * `julman99/eatmemory` is the container image well use, pulled from DockerHub
@@ -28,15 +28,12 @@ limit of 50 megabytes (`50MB`)
 
 Let's take a look at the how the container is coping with the memory demand:
 
-`docker stats --no-stream=true hungry_container`
-
 You'll output the looks similar to the following:
 
 ```text
-CONTAINER ID      NAME              CPU %     MEM USAGE / LIMIT   MEM %          NET I/O        BLOCK I/O      PIDS
-47c342943e18      hungry_container  0.00%     41.65MiB / 50MiB    83.30%         6.4kB / 90B    0B / 0B        1
+CONTAINER ID        NAME                CPU %          MEM USAGE / LIMIT   MEM %          NET I/O        BLOCK I/O           PIDS
+7b1291790717        hungry_container    0.01%          41.75MiB / 400MiB   10.44%         976B / 0B      0B / 0B             1
 ```
-You can see we're up against the memory limit of the container, but haven't gone overboard.
 
 The important thing to remember here is that the memory limit we've set for the running container is `50MB`.
 
@@ -44,17 +41,17 @@ The important thing to remember here is that the memory limit we've set for the 
 
 `docker exec -it hungry_container /bin/sh`
 
-**Step 3:** Do some memory eating from within the container. First eat `10 MB`.
+**Step 3:** Do some memory eating from within the container. First eat `200 MB`.
 
-`eatmemory 10 MB`
+`eatmemory 200M`
 
 You'll get output similar to the following:
 
 ```text
-Currently total memory: 2095968256
-Currently avail memory: 150065152
-Eating 10485760 bytes in chunks of 1024...
-Done, press any key to free the memory
+Currently total memory: 4136783872
+Currently avail memory: 2853343232
+Eating 209715200 bytes in chunks of 1024...
+Done, press any key to free the memoryexi
 ```
 
 Press a key.
@@ -63,7 +60,7 @@ You're doing just fine.
 
 **Step 4:*** Now let's go beyond the memory limit:
 
-`eatmemory 60M`
+`eatmemory 600M`
 
 Things won't go so well. You'll get output similar to the following:
 
@@ -94,6 +91,47 @@ We're back in good graces. Things are better now.
 to go over the memory limit will cause the container to crash. This is OK. Basically the 
 container is saying, _"You're ask for more memory than I'm allocated to give so I am going to
 complain. Hey, I might even blow up!"_
+
+**Step 6:** Let's go one step further and take a look at the `cgroup` memory allocation stored in the host.
+
+First, we need to find the full `id` of the container. Get the short `
+
+You'll get output similar to the following"
+`bf13180b4301        julman99/eatmemory   "/bin/eatmemory 40M"     49 minutes ago    Up 49 minutes  hungry_container    85B (virtual 4.02MB)`
+
+In this case we can grab the `id`, `bf13180b4301`
+
+**Step 6:** Inspect the container
+
+`docker inspect bf13180b4301 | grep bf13180b4301`
+
+You'll get output similar to the following:
+
+```text
+        "Id": "bf13180b4301084ae5ca115982911da285f4e4a06faa188d2b58ab46f5fe624d",
+        "ResolvConfPath": "/var/lib/docker/containers/bf13180b4301084ae5ca115982911da285f4e4a06faa188d2b58ab46f5fe624d/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/bf13180b4301084ae5ca115982911da285f4e4a06faa188d2b58ab46f5fe624d/hostname",
+        "HostsPath": "/var/lib/docker/containers/bf13180b4301084ae5ca115982911da285f4e4a06faa188d2b58ab46f5fe624d/hosts",
+        "LogPath": "/var/lib/docker/containers/bf13180b4301084ae5ca115982911da285f4e4a06faa188d2b58ab46f5fe624d/bf13180b4301084ae5ca115982911da285f4e4a06faa188d2b58ab46f5fe624d-json.log",
+            "Hostname": "bf13180b4301",
+```
+In the output above you can see that the long `id` is in the first line.
+
+**Step 7:*  In Linux, the `cgroup` memory declaration for container can be found at:
+
+`/sys/fs/cgroup/memory/docker/CONTAINER_ID`
+
+So let's see what's there
+
+`ls /sys/fs/cgroup/memory/docker/3b2b678ac29f0587719b47def9fd4115ab1d616889031c021efbc7ff4cfdd022`
+
+One of the files in that directory is, `memory.max_usage_in_bytes`
+
+`cat /sys/fs/cgroup/memory/docker/3b2b678ac29f0587719b47def9fd4115ab1d616889031c021efbc7ff4cfdd022/memory.stat
+
+`cat /sys/fs/cgroup/memory/docker/3b2b678ac29f0587719b47def9fd4115ab1d616889031c021efbc7ff4cfdd022/memory.max_usage_in_bytes`
+
+MAC/OSX handles has a different location
 
 ## At the Linux Level
 

@@ -4,7 +4,7 @@ The purpose of this project is to demonstrate the Linux overlay filesystem. The 
 upon which the concept and implementation of Docker layers is built. 
 
 ## At the Docker Level
-First lets start with a demonstration of layers in action in Docker. In these set of steps we're going
+First let's start with a demonstration of layers in action in Docker. In these set of steps we're going
 to make additions, changes, and deletions to the a file system in a Docker container. We'll use the Docker
 command, [diff](https://docs.docker.com/engine/reference/commandline/diff/) to observe the changes to the filesystem.
 
@@ -15,6 +15,8 @@ command, [diff](https://docs.docker.com/engine/reference/commandline/diff/) to o
 **Step 2:** Take a look the configuration information associate with the image.
 
 `docker inspect reselbob/pinger`
+
+There's nothing to be done. Just take a look at the information to get a sense of it.
 
 **Step 3:** Let's spin up a container from the image.
 
@@ -103,7 +105,7 @@ You'll get output similar to the following.
 
 `A /hello.txt`
 
-The history is reporting that you've added a file to the container.
+The history is reporting that you've added (A) a file, `hello.txt` to the container at the root `/`.
 
 **Step 9:** Navigate into the container:
 
@@ -132,7 +134,7 @@ C /root
 A /root/.ash_history
 A /hello.txt
 ```
-The output reflects that the file, `.ash_history` has been added and that there has been a change in the directory
+The output reflects that the files, `/root/.ash_history` and `/hello.txt` have been added and that there has been a change (C) in the directory
 `/root`
 
 **Step 13:** Create a new file
@@ -158,7 +160,7 @@ A /hello.txt
 ```
 
 You'll see that the history is reporting that the file, `/etc/goodbye.txt` has been added (A) and that the
-directory `/etc` has been changed. (Something to think about is that the directory, `etc` is supposed to be "read-only".)
+directory `/etc` has been changed (C). (Something to think about is that the directory, `/etc` is supposed to be "read-only".)
 
 **Step 16:** Let's try to delete a file in the container that is supposed to be in the container's read-only layer.
 We'll delete the file, `/etc/localtime`.
@@ -188,6 +190,8 @@ But has it?
 In the output you'll see something similar to the following:
 
 ```text
+.
+.
   "GraphDriver": {
             "Data": {
                 "LowerDir": "/var/lib/docker/overlay/0804af2c0680484ee054f6c72a83a0ecb6f2d77604025268f8c23e73ec2d3a30/root",
@@ -197,9 +201,11 @@ In the output you'll see something similar to the following:
             },
             "Name": "overlay"
         },
+.
+.
 ```
 
-Docker is reporting that there an overlay filesystem in play, `Name": "overlay`. Also, it's reporting the directories in the host where the
+Docker is reporting that there an overlay filesystem in play, `Name": "overlay`. Also, it's reporting the location in the host where the
 directories `LowerDir`, `MergedDir`,`UpperDir` and `WorkDir` are to be found. (We'll cover the meaning of this all in the next section, At the Linux File System Level.
 But, for now, just play along.)
 
@@ -227,7 +233,7 @@ TZif2UTCTZif2�UTC
 UTC0
 ```
 
-Is that strange or what? Wow, we really need to find out what's going on there.
+Is that strange or what? I thought we deleted the file. Wow, we really need to find out what's going on there.
 
 **Step 20:** Let's take a look at the `UpperDir`
 

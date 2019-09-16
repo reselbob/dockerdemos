@@ -2,7 +2,7 @@
 
 **UNDER CONSTRUCTION**
 
-The purpose of this demonstration is to implement and observe various
+The purpose of this demonstration is to implement and observe 
 the results of various Docker behaviors.
 
 Using [Katacoda's Ubuntu Playground](https://katacoda.com/courses/ubuntu/playground)

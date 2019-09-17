@@ -67,7 +67,7 @@ services:
     networks:
       - reselbob_travel
   elasticsearch:
-    image: elasticsearch
+    image: elasticsearch:6.4.0
     expose:
       - 9200
     ports:
@@ -75,7 +75,7 @@ services:
     networks:
       - reselbob_travel
   kibana:
-    image: kibana
+    image: kibana:7.3.2
     links:
       - "elasticsearch"
     ports:

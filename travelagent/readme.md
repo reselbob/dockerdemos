@@ -26,16 +26,16 @@ Calling ...
 
 ## Getting Up and Running
 
-Getting Travel Agent up and running is a 2 stage process. First, you'll need to get the Docker Compose  ELK Stack started.
+Getting Travel Agent up and running is a 2 stage process. First, you'll need to get the Docker Compose  EFK stack started.
 Then you'll need to get the actual Travel Agent application running under Docker Compose.
 
-### Get the Elk Stack Up and Running
+### Get the EFK Stack Up and Running
 
 **Step 1:** Navigate to the directory, `efk`.
 
 `cd elk`
 
-**Step 2:** Start the ELK Stack using `docker-compose`
+**Step 2:** Start the EFK Stack using `docker-compose`
 
 `docker-compose up`
 
@@ -125,8 +125,6 @@ In a third terminal window, type the following:
 
 `curl localhost:4000`
 
-
-
 You'get response will have randome values, but the fields will be similar to the following:
 
 `{"serviceName":"airline","item":"delta","agent":"Reselbob Travel"}`
@@ -134,3 +132,5 @@ You'get response will have randome values, but the fields will be similar to the
 **Step 4** Take a look at the Kibana UI at `locahost:5601` in your browser. You should see something similar to the following:
 
 ![Kibana UI](images/kibana-ui.png)
+
+**Congatulations!** Hopefully the Demo Gods are with you and all went well.

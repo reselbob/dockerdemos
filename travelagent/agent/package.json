@@ -1,0 +1,11 @@
+{
+  "name": "agent",
+  "version": "1.0.0",
+  "description": "A project that is intended to be part of demonstrating FluentD with Docker Compose",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Bob Reselman <reselbob@gmail.com>",
+  "license": "MIT"
+}

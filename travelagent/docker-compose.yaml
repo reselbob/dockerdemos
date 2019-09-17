@@ -1,22 +1,86 @@
 version: '3'
 services:
-  customer:
-    build: ./customer
+  agent:
+    build: ./agent
     ports:
       - "4000:3000"
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: httpd.access
     networks:
-      - westfield_mall
-  burgerqueen:
-    build: ./burgerqueen
+      - reselbob_travel
+  auto:
+    build: ./app
+    environment:
+      APP_NAME: auto
+      APP_ITEMS: ford:fiat:bmw
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: httpd.access
     networks:
-      - westfield_mall
-  hobos:
-    build: ./hobos
+      - reselbob_travel
+  lodging:
+    build: ./app
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: httpd.access
+    environment:
+      APP_NAME: lodging
+      APP_ITEMS: hilton:westin:motel6
     networks:
-      - westfield_mall
-  iowafried:
-    build: ./iowafried
+      - reselbob_travel
+  airline:
+    build: ./app
+    environment:
+      APP_NAME: airline
+      APP_ITEMS: virgin:jetblue:delta
+    links:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: httpd.access
     networks:
-      - westfield_mall
+      - reselbob_travel
+  fluentd:
+    build: ./fluentd
+    volumes:
+      - ./fluentd/conf:/fluentd/etc
+    links:
+      - "elasticsearch"
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    networks:
+      - reselbob_travel
+  elasticsearch:
+    image: elasticsearch
+    expose:
+      - 9200
+    ports:
+      - "9200:9200"
+    networks:
+      - reselbob_travel
+  kibana:
+    image: kibana
+    links:
+      - "elasticsearch"
+    ports:
+      - "5601:5601"
+    networks:
+      - reselbob_travel
 networks:
-  westfield_mall:
+  reselbob_travel:

@@ -128,6 +128,6 @@ You'get response will have randome values, but the fields will be similar to the
 
 `{"serviceName":"airline","item":"delta","agent":"Reselbob Travel"}`
 
-**Step 4** Take a look at the Kibana UI at `locahost:5601`. You should see something similar to the following:
+**Step 4** Take a look at the Kibana UI at `locahost:5601` in your browser. You should see something similar to the following:
 
 ![Kibana UI](images/kibana-ui.png)

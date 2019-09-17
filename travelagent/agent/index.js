@@ -24,14 +24,15 @@ const handleRequest = (request, response)  => {
             const obj = JSON.parse(data);
             obj.agent = agent;
             const str = JSON.stringify(obj);
+            console.log(JSON.stringify({organization:'demo', data: obj}));
             response.setHeader("Content-Type", "application/json");
             response.writeHead(200);
             response.end(str);
         });
 
-    }).on("error", (err) => {
-        console.log("Error: " + err.message);
-        const str = JSON.stringify(err);
+    }).on("error", (error) => {
+        const str = JSON.stringify({error, agent });
+        console.error(str);
         response.setHeader("Content-Type", "application/json");
         response.writeHead(500);
         response.end(str);

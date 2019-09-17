@@ -33,7 +33,7 @@ Then you'll need to get the actual Travel Agent application running under Docker
 
 **Step 1:** Navigate to the directory, `efk`.
 
-`cd elk`
+`cd efk`
 
 **Step 2:** Start the EFK Stack using `docker-compose`
 

@@ -1,17 +1,20 @@
 # Travel Agent
 
-The purpose of this project is to demonstrate how to incorporate an ELK stack created using Docker Compose into another Docker Compose application.
+The purpose of this project is to demonstrate how to incorporate an EFK ([Elasticsearch](https://www.elastic.co/products/elasticsearch),
+[FluentD](https://www.fluentd.org/), [Kibana](https://www.elastic.co/products/kibana)) stack created using Docker Compose into another Docker Compose application.
 
-The application we'll in corporate is Travel Agent. Travel agent is an HTTP url that returns a travel service at random.
+The application we'll in corporate is Travel Agent. Travel agent is an HTTP url that returns fictitious travel service information at random.
 
 After Travel Agent is brought up using Docker Compose, the application will be accessible on port 4000. (Assuming you use all the default
 settings.)
 
 ## General Example
 
+Calling ...
+
 `curl localhost:4000`
 
-Will return a response similar to:
+... will return a response similar to:
 
 `{"serviceName":"lodging","item":"westin","agent":"Reselbob Travel"}`
 
@@ -28,7 +31,7 @@ Then you'll need to get the actual Travel Agent application running under Docker
 
 ### Get the Elk Stack Up and Running
 
-**Step 1:** Navigate to the directory, `elk`.
+**Step 1:** Navigate to the directory, `efk`.
 
 `cd elk`
 

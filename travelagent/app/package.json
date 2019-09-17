@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "faker": "^4.1.0",
+    "flatted": "^2.0.1",
     "uuid": "^3.3.3"
   }
 }

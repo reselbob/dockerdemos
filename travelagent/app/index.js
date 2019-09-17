@@ -1,7 +1,7 @@
 const faker = require('faker');
 const uuidv4 = require('uuid/v4');
 const http = require('http');
-
+const flatted = require('flatted');
 
 const port = process.env.APP_PORT || 3000;
 const appName = process.env.APP_NAME || uuidv4();
@@ -31,7 +31,7 @@ const server = http.createServer((request, response) => {
     const item = sample(appItems) ;
     const str = JSON.stringify({appName, item});
 
-    console.log(JSON.stringify({response, appName, item}));
+    console.log(flatted.stringify({response, appName, item}));
 
     response.setHeader("Content-Type", "application/json");
     response.writeHead(200);

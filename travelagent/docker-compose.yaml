@@ -8,7 +8,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: httpd.access
+        tag: travel_agent.activity
     networks:
       - reselbob_travel
   auto:
@@ -20,7 +20,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: httpd.access
+        tag: travel_agent.activity
     networks:
       - reselbob_travel
   lodging:
@@ -29,7 +29,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: httpd.access
+        tag: travel_agent.activity
     environment:
       APP_NAME: lodging
       APP_ITEMS: hilton:westin:motel6
@@ -44,7 +44,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: httpd.access
+        tag: travel_agent.activity
     networks:
       - reselbob_travel
 networks:

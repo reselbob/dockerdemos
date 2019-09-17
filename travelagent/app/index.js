@@ -30,6 +30,9 @@ const shutdown = (signal) => {
 const server = http.createServer((request, response) => {
     const item = sample(appItems) ;
     const str = JSON.stringify({appName, item});
+
+    console.log(JSON.stringify({response, appName, item}));
+
     response.setHeader("Content-Type", "application/json");
     response.writeHead(200);
     response.end(str);

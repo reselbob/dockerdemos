@@ -55,32 +55,5 @@ services:
         tag: httpd.access
     networks:
       - reselbob_travel
-  fluentd:
-    build: ./fluentd
-    volumes:
-      - ./fluentd/conf:/fluentd/etc
-    links:
-      - "elasticsearch"
-    ports:
-      - "24224:24224"
-      - "24224:24224/udp"
-    networks:
-      - reselbob_travel
-  elasticsearch:
-    image: elasticsearch:6.4.0
-    expose:
-      - 9200
-    ports:
-      - "9200:9200"
-    networks:
-      - reselbob_travel
-  kibana:
-    image: kibana:7.3.2
-    links:
-      - "elasticsearch"
-    ports:
-      - "5601:5601"
-    networks:
-      - reselbob_travel
 networks:
   reselbob_travel:

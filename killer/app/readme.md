@@ -68,7 +68,7 @@ Unlike the SIGKILL signal, it can be caught and interpreted or ignored by the pr
 This allows the process to perform nice termination releasing resources and saving state if appropriate.
 It should be noted that SIGINT is nearly identical to SIGTERM._
 
-**Step 8:** Go back to the first terminal window (1) an review `docker events`
+**Step 8:** Go back to the first terminal window (1) and review `docker events`
 
 You'll see output similar to the following
 
@@ -82,20 +82,20 @@ You'll see output similar to the following
 2019-09-19T23:36:39.791669170Z network disconnect db3d1f35c20cbb57854f214ab0375b420987b6d48708f3e8e59c3d200776909d (container=c2bae9196988677a65583af8b768f08588ec86745c2cc429e59f734fa3f2e2cf, name=bridge, type=bridge)
 ```
 
-**Step 8:** Review the Linux Signal Code shown blow,
+**Step 8:** Review the Linux Signal Code shown below,
 
 **Linux Signal Codes**
 ```text
 0 - ? 
 1 - SIGHUP - ?, controlling terminal closed, 
-2 - SIGINT - interupt process stream, ctrl-C 
-3 - SIGQUIT - like ctrl-C but with a core dump, interuption by error in code, ctl-/ 
+2 - SIGINT - interrupt process stream, ctrl-C 
+3 - SIGQUIT - like ctrl-C but with a core dump, interruption by error in code, ctl-/ 
 4 - SIGILL 
 5 - SIGTRAP 
 6 - SIGABRT 
 7 - SIGBUS 
 8 - SIGFPE 
-9 - SIGKILL - terminate immediately/hard kill, use when 15 doesn't work or when something disasterous might happen if process is allowed to cont., kill -9 
+9 - SIGKILL - terminate immediately/hard kill, use when 15 doesn't work or when something disastrous might happen if process is allowed to cont., kill -9 
 10 - SIGUSR1 
 11 - SIGEGV 
 12 - SIGUSR2

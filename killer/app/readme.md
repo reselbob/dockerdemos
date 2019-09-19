@@ -123,8 +123,8 @@ You'll see output similar to the following
 
 `2019-09-19T23:36:15.517993336Z container kill ea9f0b66a6235a9bee55cacf6a19190d9bff0bc5b51faef37f96758e57dfaa66 (image=good_dog, name=mygood_dog, signal=15)`
 
-Notice the container  `mygood_dog` exited with a signal of 15 which is `SIGTERM`. This makes sense because whe shut down `mygood_dog` using `docker stope`.
+Notice the container  `mygood_dog` exited with a signal of 15 which is `SIGTERM`. This makes sense because we shut down `mygood_dog` using `docker stop`.
 
-Notice the container  `mybad_dog` exited with a signal of 9 which is `SIGKILL`. This makes sense because whe shut down `mybad_dog` using `docker kill`.
+Notice the container  `mybad_dog` exited with a signal of 9 which is `SIGKILL`. This makes sense because we shut down `mybad_dog` using `docker kill`.
 
 The takeaway? When shutting down a container, try to use `docker stop`. The `SIGTERM` signal can get to the application and thus, shutdown can be graceful.

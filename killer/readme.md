@@ -17,7 +17,7 @@ Add the following text to the Dockerfile
 ```text
 FROM alpine
 RUN echo "while [ 1==1 ]; do echo 'I am Good Dog'; sleep 1s;done" > good_dog.sh
-ENTRYPOINT [sh", "good_dog.sh"]
+ENTRYPOINT ["sh", "good_dog.sh"]
 ```
 
 Go back from whence you came 

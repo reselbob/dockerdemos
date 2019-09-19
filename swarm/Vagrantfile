@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+
+Vagrant.configure(2) do |config|
+  NodeCount = 4
+
+  # Kubernetes Worker Nodes
+  (1..NodeCount).each do |i|
+    config.vm.define "reselswarm#{i}" do |workernode|
+      workernode.vm.box = "ubuntu/xenial64"
+      workernode.vm.hostname = "reselswarm#{i}.example.com"
+      workernode.vm.network "public_network", bridge: "enp2s0", use_dhcp_assigned_default_route: true
+      workernode.vm.provider "virtualbox" do |v|
+        v.name = "reselswarm#{i}"
+        v.memory = 4096
+        v.cpus = 1
+        config.vm.provision "shell", inline: <<-SHELL
+          sudo apt install apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial"
+          sudo apt update
+          apt-get install -y docker-ce
+          apt-get install -y docker-compose
+        SHELL
+      end
+    end
+  end
+
+end
+

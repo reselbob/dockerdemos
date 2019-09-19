@@ -1,11 +1,11 @@
 # What's My Namespace
 
-**UNDER CONSTRUCTION**
-
 The purpose of this project is to demonstrate Linux [namespace](http://man7.org/linux/man-pages/man7/namespaces.7.html) isolation. In this project we
 are going to create a new namespace and then make a change to the hostname. (The change will
 affect the namespace type, `UTS`.) Because the hostname change has occurred in the newly created namespace,
 it will only be visible within the new namespace.
+
+## At the Linux Level
 
 **Step 1:** Make the current user a super user:
 
@@ -115,3 +115,8 @@ Thus, both the new namespace and the original namespace share the same namespace
 
 Is this confusing? Yes, it is. The important thing to understand is that namespaces provide a way to isolate activities from one another
 in the same Linux host.
+
+## At the Container Level
+
+**UNDER CONSTRUCTION**
+

@@ -1,7 +1,5 @@
 # Groupies
 
-**UNDER CONSTUCTION**
-
 The purpose of this project is to demonstrate various aspects of Linux `cgroup` in terms of direct use under Docker and
 also at a lower level in terms of the Linux operating system.
 
@@ -192,6 +190,8 @@ which is the actual byte count for the `150 MB` memory limit we set on the conta
 As you see there a close relationship between Docker and the host it's running in. More on this later.
 
 ## At the Linux Level
+
+**UNDER CONSTUCTION**
 
 **Step 1:** Become the super user
 

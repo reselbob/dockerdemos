@@ -1,9 +1,7 @@
 FROM python:2.7-alpine
 ENV APP_NAME=BAD_DOG
-STOPSIGNAL SIGINT
 RUN adduser -D -g '' cool_user
 USER cool_user
 WORKDIR /app
 COPY killer.py /app
 ENTRYPOINT python killer.py
-#CMD ["/usr/local/bin/python killer.py"]

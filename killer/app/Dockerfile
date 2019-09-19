@@ -5,4 +5,3 @@ USER cool_user
 WORKDIR /app
 COPY killer.py /app
 ENTRYPOINT ["python", "killer.py"]
-#CMD ["/usr/local/bin/python", "killer.py"]

@@ -31,7 +31,7 @@ weaveworks/scope    1.11.4         sha256:8c44d6761e197cc5c901d8b017d3afc528d343
 ubuntu              latest         sha256:c303f19cfe9ee92badbbbd7567bc1ca47789f79303ddcef56f77687d4744cd7a   3556258649b2        8 weeks ago         64.2MB
 alpine              <none>         sha256:6a92cd1fcdc8d8cdec60f33dda4db2cb1fcdcacf3410a8e05b3741f44a9b5998   b7b28af77ffe        2 months ago        5.58MB```
 ```
-Notice that in this case there are two entries for `alpine`. One is 4 weeks old. The other is 4 months old. We pulled
+Notice that in this case there are two entries for `alpine`. One is 4 weeks old. The other is 2 months old. We pulled
 the one that is 4 weeks old.
 
 **Step 3:** Create a Dockerfile as followings, using the recent digest

@@ -65,6 +65,6 @@ You'll get output similar to the following:
 
 `Mimicking:  There is nothing to mimic.`
 
-Why? Because without a parameter passed in a container creation the `[CMD]` clause in the Dockerfile
+Why? Because without a parameter passed in at container creation time, the `[CMD]` clause in the Dockerfile
 is respected.
 

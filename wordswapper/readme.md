@@ -39,7 +39,7 @@ Navigate to the source code directory:
 
 ### Building a Docker Image Without Caching
 
-`time docker build -t badwrapper -f  --no-cache Dockerfile_bad .`
+`time docker build -t badwrapper --no-cache . -f Dockerfile_bad `
 
 ### Building a Docker Image With Caching
 
@@ -61,7 +61,7 @@ take significantly less time.
 
 Run the following command:
 
-`time docker build -t badwrapper -f Dockerfile_bad .`
+`time docker build -t badwrapper . -f Dockerfile_bad `
 
 You should see output similar to the following:
 
@@ -100,7 +100,7 @@ sys     0m0.016s
 
 ### Building a Docker Image Using Cache
 
-`time docker build -t goodwrapper -f Dockerfile_good .`
+`time docker build -t goodwrapper . -f Dockerfile_good`
 
 ```text
 real    0m0.150s
@@ -133,7 +133,7 @@ directory in the container.
 Let's build the Docker image again, just in case you jumped directly to this section
 and neglected to do the build earlier.
 
-` docker build -t goodwrapper -f Dockerfile_good .`
+`docker build -t goodwrapper . -f Dockerfile_good`
 
 Execute the command to run the container with a bound volume.
 

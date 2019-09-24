@@ -191,8 +191,6 @@ As you see there a close relationship between Docker and the host it's running i
 
 ## At the Linux Level
 
-**UNDER CONSTUCTION**
-
 **Step 1:** Become the super user
 
 `sudo su -`
@@ -277,7 +275,6 @@ You'll get some output that will describe the memory limit of the group like so:
 
 `9223372036854771712`
 
-
 **Step 7:** Let's set a 10MiB memory limit for the cgroup
 
 `echo 10485760 | tee /sys/fs/cgroup/memory/playground/memory.limit_in_bytes`
@@ -307,21 +304,6 @@ sleeping for 1 seconds...
 
 `cgexec -g memory:playground bash`
 
-**Step 11:** Become `dockerstudent` 
-
-`su - dockerstudent`
-
-**Step 12:** We'll try to eat up some memory 
-             
-`memhog 104857600 1`
-
-
-**Step :** Let's be good citizens and change the the new user `dockerstudent`
-
-``
-
-
-**Step 3:** Alter `/etc/default/adduser` to make it so that the new user is given a home directory
-
+**MORE TO COME**
 
 

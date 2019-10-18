@@ -3,6 +3,38 @@
 The purpose of this project is to demonstrate the implicit service discovery that `docker-compose`
 internal DNS naming provides.
 
+Before starting, review the Docker Compose file:
+
+```yaml
+version: '3'
+services:
+  customer:
+    build: ./customer
+    ports:
+      - "4000:3000"
+    networks:
+      - westfield_mall
+  burgerqueen:
+    build: ./burgerqueen
+    networks:
+      - westfield_mall
+  hobos:
+    build: ./hobos
+    networks:
+      - westfield_mall
+  iowafried:
+    build: ./iowafried
+    networks:
+      - westfield_mall
+networks:
+  westfield_mall:
+```
+Notice that the entry point to the application is the service, `customer` which binds the host
+port, `4000` to the container port, `3000`. After we get the application up and running we'll
+access the application via `localhost:4000`.
+
+## Installation and Initial Operation
+
 **Step 1:** Go to the Katacoda Ubuntu Playground
 
 `https://katacoda.com/courses/ubuntu/playground`

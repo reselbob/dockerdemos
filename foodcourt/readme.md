@@ -3,10 +3,69 @@
 The purpose of this project is to demonstrate the implicit service discovery that `docker-compose`
 internal DNS naming provides.
 
-## Start up
+**Step 1:** Go to the Katacoda Ubuntu Playground
+
+`https://katacoda.com/courses/ubuntu/playground`
+
+**Step 2:** Clone the code from the GitHub respository.
+
+`git clone https://github.com/reselbob/dockerdemos.git`
+
+**Step 3:** Navigate to this Food Court project
+
+`cd dockerdemos/foodcourt/`
+
+**Step 4:** Bring up the application under Docker Compose
 
 `docker-compose up -d`
 
+It will take a minute or two for the application's images to build and the containers
+to run.
+
+When  the process completes you'll get output similar to the following
+
+```text
+Creating foodcourt_hobos_1 ...
+Creating foodcourt_iowafried_1 ...
+Creating foodcourt_customer_1 ...
+Creating foodcourt_burgerqueen_1 ...
+Creating foodcourt_hobos_1
+Creating foodcourt_iowafried_1
+Creating foodcourt_customer_1
+Creating foodcourt_iowafried_1 ... done
+```
+
+**Step 5:** Once `docker-compose` is up and running, try the following bash `for` loop
+ that runs a `curl` command against the Food Court Service running under HTTP.
+ 
+
+
+`for i in {1..20}; do curl localhost:4000 -w "\n"; done`
+
+You'll get output similar to the following:
+
+```text{"restaurant":"Burger Queen","order":"burger","customer":"Friendly Shopper"}
+       {"restaurant":"Iowa Fried Chicken","order":"Chix Pack","customer":"Friendly Shopper"}
+       {"restaurant":"Howard Bonsons","order":"double burger","customer":"Friendly Shopper"}
+       {"restaurant":"Burger Queen","order":"onion rings","customer":"Friendly Shopper"}
+       {"restaurant":"Iowa Fried Chicken","order":"Spicy Wings","customer":"Friendly Shopper"}
+       {"restaurant":"Howard Bonsons","order":"fried shrimp","customer":"Friendly Shopper"}
+       {"restaurant":"Burger Queen","order":"fries","customer":"Friendly Shopper"}
+       {"restaurant":"Iowa Fried Chicken","order":"Chix Pack","customer":"Friendly Shopper"}
+       {"restaurant":"Burger Queen","order":"onion rings","customer":"Friendly Shopper"}
+       {"restaurant":"Burger Queen","order":"whooper","customer":"Friendly Shopper"}
+       {"restaurant":"Iowa Fried Chicken","order":"Chix Pack","customer":"Friendly Shopper"}
+       {"restaurant":"Iowa Fried Chicken","order":"Chicken Pot Pie","customer":"Friendly Shopper"}
+       {"restaurant":"Burger Queen","order":"whooper","customer":"Friendly Shopper"}
+       {"restaurant":"Iowa Fried Chicken","order":"Chicken Pot Pie","customer":"Friendly Shopper"}
+       {"restaurant":"Iowa Fried Chicken","order":"Chicken Pot Pie","customer":"Friendly Shopper"}
+       {"restaurant":"Howard Bonsons","order":"soda and fries","customer":"Friendly Shopper"}
+       {"restaurant":"Burger Queen","order":"fries","customer":"Friendly Shopper"}
+       {"restaurant":"Howard Bonsons","order":"double burger","customer":"Friendly Shopper"}
+       {"restaurant":"Howard Bonsons","order":"grilled cheese","customer":"Friendly Shopper"}
+       {"restaurant":"Burger Queen","order":"onion rings","customer":"Friendly Shopper"}
+```
+Notice the response changes each time a call is made to the service.
 ## Discussion
 
 You'll notice in the file [`docker-compose.yaml`](docker-compose.yaml) defines four services:
@@ -44,10 +103,3 @@ const sample = (items) => {return items[Math.floor(Math.random()*items.length)];
 Notice that `${service}` is a variable that refers to a DNS name. The DNS name is a string that's extracted from the array, `services`.
 The values in the array, `services` correspond to the service names defined in the 
 `docker-compose.yaml` file which you can view [here](docker-compose.yaml).
-
-## Checking It Out
-
-Once `docker-compose` is up and running, try the following `curl` command to observe how behavior
-changes each time a call is made to the service.
-
-`for i in {1..20}; do curl localhost:4000 -w "\n"; done`

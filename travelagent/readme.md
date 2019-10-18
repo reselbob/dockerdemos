@@ -3,28 +3,28 @@
 The purpose of this project is to demonstrate how to incorporate an EFK ([Elasticsearch](https://www.elastic.co/products/elasticsearch),
 [FluentD](https://www.fluentd.org/), [Kibana](https://www.elastic.co/products/kibana)) stack created using Docker Compose into another Docker Compose application.
 
-The application we'll in corporate is Travel Agent. Travel agent is an HTTP url that returns fictitious travel service information at random.
+The application we'll incorporate is Travel Agent. Travel Agent service is represented as an HTTP url that returns fictitious travel service information at random.
 
 After Travel Agent is brought up using Docker Compose, the application will be accessible on port 4000. (Assuming you use all the default
 settings.)
 
-## General Example
+## Pre-installation
 
-Calling ...
+In this project we'll use the Katacoda Ubuntu Playground virtual machine as our runtime environment.
 
-`curl localhost:4000`
+**Step 1:** Go to the Katacoda Ubuntu Playground
 
-... will return a response similar to:
+`https://katacoda.com/courses/ubuntu/playground`
 
-`{"serviceName":"lodging","item":"westin","agent":"Reselbob Travel"}`
+**Step 2:** Clone the GitHub respository that contains the project's source code.
 
-**WHERE**
+`git clone https://github.com/reselbob/dockerdemos.git`
 
-* `serviceName`, is one of the subordinate applications that provides service to the Travel Agency (`auto`, `airline`, `travel`).
-* `item`, is one of the items that `serviceName` provides
-* `agent`, is the travel agent coordinating all activity
+**Step 3:** Navigate to the project directory;
 
-## Getting Up and Running
+`cd dockerdemos/travelagent/`
+
+## Getting the EFK Up and Running
 
 Getting Travel Agent up and running is a 2 stage process. First, you'll need to get the Docker Compose  EFK stack started.
 Then you'll need to get the actual Travel Agent application running under Docker Compose.
@@ -43,12 +43,15 @@ It will take a while for the entire stack to load in. Once loaded, you'll be abl
 
 ### Get the Travel Agent Service Up and Running
 
-**Step 1** : In a **new** terminal window, navigate back to the `travelagent` directory. Make sure you can see the file,
-`docker-compose.yaml`.
+**Step 1** : In a **new** terminal window, navigate back to the `travelagent` directory.
+
+`cd dockerdemos/travelagent/`
+
+Make sure you can see the file, `docker-compose.yaml`.
 
 `cat docker-compose.yaml`
 
-You'set output similar to the following
+You'set output similar to the following.
 
 ```yaml
 version: '3'
@@ -103,6 +106,7 @@ services:
 networks:
   reselbob_travel:
 ```
+Review the file, `docker-compose.yaml` to get a sense of the various services that make up the `Travel Agent` application.
 
 **Step 2** Start the Travel Agent service using Docker Compose.
 
@@ -121,15 +125,38 @@ Creating travelagent_agent_1 ... done
 **Step 3** Let's get the Travel Agent to generate some data.
 (Again, we're assuming you're running everything using the settings described in `docker-compose.yaml`.)
 
-In a third terminal window, type the following:
+In a **third terminal window**, type the following:
 
 `curl localhost:4000`
 
-You'get response will have randome values, but the fields will be similar to the following:
+You'get response will have random values, but the fields will be similar to the following:
 
 `{"serviceName":"airline","item":"delta","agent":"Reselbob Travel"}`
 
-**Step 4** Take a look at the Kibana UI at `locahost:5601` in your browser. You should see something similar to the following:
+### Viewing the Kibana Dashboard Under Katacoda
+
+**Step 1:** in the Katacoda Interactive Learning environment, click the plus (+) character at
+the right of the menu bar.
+
+![Access Web Host 1](./images/kibana-install-01.png)
+
+**Step 2:** Select the option, `Select port to view on Host 1`, from the dropdown menu.
+
+![Access Web Host 2](./images/kibana-install-02.png)
+
+**Step 3:** Enter the Kibana port, `5601` in the Web Preview Port Selector web page that appears.
+
+![Access Web Host 3](./images/kibana-install-03.png)
+
+After you've entered the port number in textbox, click the button, `Display Port`.
+
+**Step 4:** After a few seconds the web page, `Welcome to Kibana` will appear.
+
+![Access Web Host 4](./images/kibana-install-04.png)
+
+**Step 5** After you complete the Kibana initialization process, you'll see
+Travel Agent activity in the Kibana Dashboard. 
+
 
 ![Kibana UI](images/kibana-ui.png)
 

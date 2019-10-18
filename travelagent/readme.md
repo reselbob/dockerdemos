@@ -154,7 +154,7 @@ After you've entered the port number in textbox, click the button, `Display Port
 
 ![Access Web Host 4](./images/kibana-install-04.png)
 
-**Step 5** After you complete the Kibana initialization process, you'll see
+**Step 5:** After you complete the Kibana initialization process, you'll see
 Travel Agent activity in the Kibana Dashboard. 
 
 

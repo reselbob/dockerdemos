@@ -159,27 +159,37 @@ After you've entered the port number in textbox, click the button, `Display Port
 
 ![Access Web Host 4](./images/kibana-install-04.png)
 
+**Step 5:** After Kibana is up and running we need to make EFK aware of that the Travel Agent application is emitted log messages. Also, we want EFK to consume that application's log emissions, store them and represent that data within Kibana
+
+Click the `Management` tab in the panel on the left side of the Kibana UI.
+
 ![Access Web Host 5](./images/kibana-install-05.png)
+
+**Step 6:**  Click, `Index Patterns` to identify that log emissions coming from the Tavel Agent application.
 
 ![Access Web Host 6](./images/kibana-install-06.png)
 
+**Step 7:** In the `Index pattern` text box enter `fl` which will filter known index patters to identify `fluent-20191024`. (In this case there is a small error in that the entry `fl*` while useful to identify the pattern, is not the full name of the pattern. As such, it will be saved as the pattern name. Is it confusing? Yes. Sorry.)
+
 ![Access Web Host 7](./images/kibana-install-07.png)
 
-![Access Web Host 9](./images/kibana-install-08.png)
+**Step 8:** Select `@timestamp` as the index field.
+
+![Access Web Host 8](./images/kibana-install-08.png)
+
+The click the button, `Create index pattern` at the lower right of the UI.
 
 ![Access Web Host 9](./images/kibana-install-09.png)
 
+**Step 9:** Select the `Dicover` menu item on the left pane of the Kibabna UI. This will reveal in the known index patterns. You'll see the poorly names index filed, `fl*` on the left.
+
+**Step 10:**  Select the index field, `fl*` on the left in the filters column.
+
 ![Access Web Host 10](./images/kibana-install-10.png)
 
+**Step 11:** You'll be presented with the UI that displays the log entry activity for the Travel Agent application 
+
 ![Access Web Host 11](./images/kibana-install-11.png)
-
-
-
-**Step 5:** After you complete the Kibana initialization process, you'll see
-Travel Agent activity in the Kibana Dashboard. 
-
-
-![Kibana UI](images/kibana-ui.png)
 
 
 **Congatulations!** Hopefully the Demo Gods are with you and all went well.

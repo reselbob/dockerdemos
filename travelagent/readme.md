@@ -133,6 +133,11 @@ You'get response will have random values, but the fields will be similar to the 
 
 `{"serviceName":"airline","item":"delta","agent":"Reselbob Travel"}`
 
+Now, let's make it so that the travel agent is always calling services:
+
+`while [ 1 -eq 1 ]; do curl localhost:4000; done`
+
+The code above will run forever or until you shut down Katacoda session.
 ### Viewing the Kibana Dashboard Under Katacoda
 
 **Step 1:** in the Katacoda Interactive Learning environment, click the plus (+) character at
@@ -154,10 +159,27 @@ After you've entered the port number in textbox, click the button, `Display Port
 
 ![Access Web Host 4](./images/kibana-install-04.png)
 
+![Access Web Host 5](./images/kibana-install-05.png)
+
+![Access Web Host 6](./images/kibana-install-06.png)
+
+![Access Web Host 7](./images/kibana-install-07.png)
+
+![Access Web Host 9](./images/kibana-install-08.png)
+
+![Access Web Host 9](./images/kibana-install-09.png)
+
+![Access Web Host 10](./images/kibana-install-10.png)
+
+![Access Web Host 11](./images/kibana-install-11.png)
+
+
+
 **Step 5:** After you complete the Kibana initialization process, you'll see
 Travel Agent activity in the Kibana Dashboard. 
 
 
 ![Kibana UI](images/kibana-ui.png)
+
 
 **Congatulations!** Hopefully the Demo Gods are with you and all went well.

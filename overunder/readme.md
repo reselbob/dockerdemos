@@ -8,6 +8,10 @@ First let's start with a demonstration of layers in action in Docker. In these s
 to make additions, changes, and deletions to the a file system in a Docker container. We'll use the Docker
 command, [diff](https://docs.docker.com/engine/reference/commandline/diff/) to observe the changes to the filesystem.
 
+**Step 0:** Go to the Katacoda Ubuntu Playground:
+
+`https://katacoda.com/courses/ubuntu/playground`
+
 **Step 1:** Pull an Docker container from the Docker Hub repository.
 
 `docker pull reselbob/pinger`
@@ -484,7 +488,7 @@ it order to delete `/home/over-under`.
 `umount /home/over-under/merged`
 
 Once the `/home/over-under/merged` directory is unmounted, we can delete
-the demonnstration project.
+the demonstration project.
 
 **Step 20:**  Delete the directory, `/home/over-under`.
 

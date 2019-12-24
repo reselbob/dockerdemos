@@ -1,10 +1,14 @@
 # Port-o-Call
 
-The purpose of the project is to demonstrate various apsects to Docker port assignemnt and forwarding.
+The purpose of the project is to demonstrate various aspects to Docker port assignemnt and forwarding.
+
+**Step 0:** Go to the interactive Ubuntu playground on Katacoda:
+
+`https://katacoda.com/courses/ubuntu/playground`
 
 ## Mapping a service port on the host to the container default port
 
-**Step 1:** Sping up a instance of an `nginx` container using the `-P` option.
+**Step 1:** Spin up a instance of an `nginx` container using the `-P` option.
 
 `docker run -d -P --name mynginx nginx:latest`
 

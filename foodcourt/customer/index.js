@@ -11,7 +11,7 @@ const handleRequest = (request, response)  => {
 
     const service = sample(services);
 
-    http.get(`http://${service}:3000`, (resp) => {
+    http.get(`http://${service}:$`{port}, (resp) => {
         let data = '';
 
         // A chunk of data has been recieved.

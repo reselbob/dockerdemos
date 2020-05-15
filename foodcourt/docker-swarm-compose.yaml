@@ -1,25 +1,21 @@
 version: '3'
 services:
   customer:
-    build: ./customer
-    image: customer
+    image: localhost:5000/customer
     ports:
       - "4000:3000"
     networks:
       - westfield_mall
   burgerqueen:
-    build: ./burgerqueen
-    image: burgerqueen
+    image: localhost:5000/burgerqueen
     networks:
       - westfield_mall
   hobos:
-    build: ./hobos
-    image: hobos
+    image: localhost:5000/hobos
     networks:
       - westfield_mall
   iowafried:
-    build: ./iowafried
-    image: iowafried
+    image: localhost:5000/iowafried
     networks:
       - westfield_mall
 networks:

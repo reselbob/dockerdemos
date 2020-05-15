@@ -1,5 +1,7 @@
 # Food Court
 
+## Running under Docker Compose
+
 The purpose of this project is to demonstrate the implicit service discovery that `docker-compose`
 internal DNS naming provides.
 
@@ -33,7 +35,7 @@ Notice that the entry point to the application is the service, `customer` which 
 port, `4000` to the container port, `3000`. After we get the application up and running we'll
 access the application via `localhost:4000`.
 
-## Installation and Initial Operation
+### Installation and Initial Operation
 
 **Step 1:** Go to the Katacoda Ubuntu Playground
 
@@ -98,7 +100,7 @@ You'll get output similar to the following:
        {"restaurant":"Burger Queen","order":"onion rings","customer":"Friendly Shopper"}
 ```
 Notice the response changes each time a call is made to the service.
-## Discussion
+### Discussion
 
 You'll notice in the file [`docker-compose.yaml`](docker-compose.yaml) defines four services:
 
@@ -135,3 +137,41 @@ const sample = (items) => {return items[Math.floor(Math.random()*items.length)];
 Notice that `${service}` is a variable that refers to a DNS name. The DNS name is a string that's extracted from the array, `services`.
 The values in the array, `services` correspond to the service names defined in the 
 `docker-compose.yaml` file which you can view [here](docker-compose.yaml).
+
+## Running under Docker Swarm
+
+**Step 1:** Go to the Katacoda Swarm Playground
+
+`https://katacoda.com/courses/docker-orchestration/playground`
+
+**Step 2:** Get the source code
+
+`git clone https://github.com/reselbob/dockerdemos.git`
+
+**Step 3:** Navigate to the working directory
+
+`cd dockerdemos/foodcourt/`
+
+**Step 4:** Seed a local Docker registry
+
+`sh docker-seed.sh`
+
+**Step 5:** Seed a create the network overlay
+
+`docker network create -d overlay westfield_mall`
+
+**Step 6:** Deploy Food Court to the Swarm
+
+`docker stack deploy --compose-file docker-swarm-compose.yaml foodcourt`
+
+**Step 7:** Take a look at the services running in the Swarm
+
+`docker stack services foodcourt`
+
+**Step 8:** Take a look at the Nodes running in the Swarm
+
+`docker node ls`
+
+**Step 9:** Exercise the exposed Customer services
+
+`for i in {1..20}; do curl host01:4000 -w "\n"; done`

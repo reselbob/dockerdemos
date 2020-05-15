@@ -2,6 +2,8 @@ version: '3'
 services:
   customer:
     image: localhost:5000/customer
+    environment:
+      - RESTAURANT_SERVICES="foodcourt_burgerqueen,foodcourt_iowafried,foodcourt_hobos"
     depends_on:
       - burgerqueen
       - hobos

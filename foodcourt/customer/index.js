@@ -6,18 +6,6 @@ const customer = 'Friendly Shopper';
 const DEFAULT_SERVICES = ['burgerqueen', 'hobos', 'iowafried'];
 let services = DEFAULT_SERVICES;
 
-/*
-For example you can set environment as
-  RESTAURANT_SERVICES="foodcourt_burgerqueen,foodcourt_iowafried,foodcourt_hobos"
- */
-if(process.env.RESTAURANT_SERVICES){
-    try {
-        services = process.env.RESTAURANT_SERVICES.split(",");
-    } catch (e) {
-        console.log({env_var: process.env.RESTAURANT_SERVICES, error: e})
-    }
-}
-
 const sample = (items) => {return items[Math.floor(Math.random()*items.length)];};
 
 const handleRequest = (request, response)  => {

@@ -168,6 +168,8 @@ The values in the array, `services` correspond to the service names defined in t
 
 `docker stack services foodcourt`
 
+**NOTE:** Be patient. It takes a while for the containers to spin up.
+
 **Step 8:** Take a look at the Nodes running in the Swarm
 
 `docker node ls`

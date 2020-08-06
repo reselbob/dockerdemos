@@ -341,7 +341,7 @@ lo        Link encap:Local Loopback
           RX bytes:59664 (58.2 KiB)  TX bytes:59664 (58.2 KiB)
 ```
 
-Notice that the host network inteface is exposed inexit the contiainer like so:
+Notice that the host network inteface is exposed in the container like so:
 
 ```text
 enp0s3    Link encap:Ethernet  HWaddr 08:00:27:F4:03:72

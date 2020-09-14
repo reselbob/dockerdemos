@@ -1,6 +1,8 @@
 const http = require('http');
 const port = process.env.APP_PORT || 3000;
 
+const tracer = require('./tracer')('foodcourt');
+
 const customer = 'Friendly Shopper';
 
 const DEFAULT_SERVICES = ['burgerqueen', 'hobos', 'iowafried'];

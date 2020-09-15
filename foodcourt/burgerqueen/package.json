@@ -8,7 +8,10 @@
   },
   "author": "Bob Reselman <reselbob@gmail.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "jaeger-client": "^3.10.0",
+    "opentracing": "latest"
+  },
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.2.0",

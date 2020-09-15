@@ -1,10 +1,9 @@
 const http = require('http');
-const { initTracer } = require("./tracing");
+const { initTracer } = require('./tracer');
 const { Tags, FORMAT_HTTP_HEADERS } = require('opentracing');
 const tracer = initTracer("foodcourt-customer");
 
 const port = process.env.APP_PORT || 3000;
-
 
 const customer = 'Friendly Shopper';
 

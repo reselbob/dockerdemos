@@ -6,10 +6,14 @@ services:
       - "4000:3000"
     networks:
       - westfield_mall
+    depends_on:
+      - jaeger
   burgerqueen:
     build: ./burgerqueen
     networks:
       - westfield_mall
+    depends_on:
+      - jaeger
   hobos:
     build: ./hobos
     networks:

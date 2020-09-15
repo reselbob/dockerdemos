@@ -1,6 +1,10 @@
 const http = require('http');
+const { initTracer } = require("./tracing");
+const { Tags, FORMAT_HTTP_HEADERS } = require('opentracing');
+const tracer = initTracer("foodcourt-customer");
+
 const port = process.env.APP_PORT || 3000;
-const tracer = require('./tracer')('foodcourt');
+
 
 const customer = 'Friendly Shopper';
 
@@ -10,8 +14,18 @@ let services = DEFAULT_SERVICES;
 const sample = (items) => {return items[Math.floor(Math.random()*items.length)];};
 
 const handleRequest = (request, response)  => {
+    const parentSpanContext = tracer.extract(FORMAT_HTTP_HEADERS, request.headers)
+    const span = tracer.startSpan('http_server', {
+        childOf: parentSpanContext,
+        tags: {[Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER}
+    });
 
     const service = sample(services);
+
+    span.log({
+        'event': 'call_service',
+        'value': service
+    });
 
     http.get(`http://${service}:${port}`, (resp) => {
         let data = '';
@@ -38,6 +52,7 @@ const handleRequest = (request, response)  => {
         response.writeHead(500);
         response.end(str);
     });
+    span.finish();
 };
 
 const server = http.createServer(handleRequest);

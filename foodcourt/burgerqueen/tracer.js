@@ -8,6 +8,7 @@ module.exports.initTracer = serviceName => {
       param: 1,
     },
     reporter: {
+      collectorEndpoint: 'http://jaeger:14268/api/traces',
       logSpans: true,
     },
   };

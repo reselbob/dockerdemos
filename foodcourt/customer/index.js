@@ -1,57 +1,61 @@
-const http = require('http');
-const { initTracer } = require('./tracer');
-const { Tags, FORMAT_HTTP_HEADERS } = require('opentracing');
-const tracer = initTracer("foodcourt-customer");
-
+const request = require('request-promise');
 const port = process.env.APP_PORT || 3000;
+
+const initTracer = require('./tracer').initTracer;
+const { Tags, FORMAT_HTTP_HEADERS } = require('opentracing');
+
+const tracer = initTracer('foodcourt');
 
 const customer = 'Friendly Shopper';
 
 const DEFAULT_SERVICES = ['burgerqueen', 'hobos', 'iowafried'];
 let services = DEFAULT_SERVICES;
 
-const sample = (items) => {return items[Math.floor(Math.random()*items.length)];};
+const sample = (items) => { return items[Math.floor(Math.random() * items.length)]; };
 
-const handleRequest = (request, response)  => {
-    const parentSpanContext = tracer.extract(FORMAT_HTTP_HEADERS, request.headers)
-    const span = tracer.startSpan('http_server', {
+const handleRequest = async (request, response) => {
+    parentSpanContext = tracer.extract(FORMAT_HTTP_HEADERS, request.headers)
+    const span = tracer.startSpan('customer_service_get', {
         childOf: parentSpanContext,
-        tags: {[Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER}
+        tags: { [Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER }
     });
 
     const service = sample(services);
-
+    span.setTag('indentified_service', service);
     span.log({
-        'event': 'call_service',
+        'event': 'customer_service_get',
         'value': service
     });
 
-    http.get(`http://${service}:${port}`, (resp) => {
-        let data = '';
+    const data = await callService(service, span);
+    const obj = JSON.parse(data);
+    obj.customer = customer;
+    const str = JSON.stringify(obj);
+    response.setHeader("Content-Type", "application/json");
+    response.writeHead(200);
+    response.end(str);
 
-        // A chunk of data has been recieved.
-        resp.on('data', (chunk) => {
-            data += chunk;
-        });
-
-        // The whole response has been received. Print out the result.
-        resp.on('end', () => {
-            const obj = JSON.parse(data);
-            obj.customer = customer;
-            const str = JSON.stringify(obj);
-            response.setHeader("Content-Type", "application/json");
-            response.writeHead(200);
-            response.end(str);
-        });
-
-    }).on("error", (err) => {
-        console.log("Error: " + err.message);
-        const str = JSON.stringify(err);
-        response.setHeader("Content-Type", "application/json");
-        response.writeHead(500);
-        response.end(str);
-    });
     span.finish();
+};
+
+const callService = async (service, root_span, root_response) => {
+    const method = 'GET';
+    const headers = {};
+    const url = `http://${service}:${port}`;
+    const span = tracer.startSpan(fn, { childOf: root_span.context() });
+    return request({ url, method, headers })
+        .then(data => {
+            span.finish();
+            return data;
+        }, e => {
+            span.setTag(Tags.ERROR, true)
+            span.log({
+                'event': 'error',
+                'error.object': e
+            });
+            span.finish();
+        });
+
 };
 
 const server = http.createServer(handleRequest);
@@ -62,11 +66,24 @@ server.listen(port, () => {
 
 
 const shutdown = (signal) => {
-    if(!signal){
-        console.log(`${customer} API Server shutting down at ${new Date()}`);
-    }else{
-        console.log(`Signal ${signal} : ${customer} API Server shutting down at ${new Date()}`);
+    const span = tracer.startSpan('customer_service-shutdown');
+    if (!signal) {
+        const str = `${customer} API Server shutting down at ${new Date()}`
+        span.log({
+            'event': 'customer_service_shutdown',
+            'value': str
+        });
+        console.log(str);
+
+    } else {
+        const str = `Signal ${signal} : ${customer} API Server shutting down at ${new Date()}`
+        span.log({
+            'event': 'customer_service_shutdown',
+            'value': str
+        });
+        console.log(str);
     }
+    span.finish();
     server.close(function () {
         process.exit(0);
     })
@@ -79,4 +96,4 @@ process.on('SIGINT', function () {
     shutdown('SIGINT');
 });
 
-module.exports = {server,shutdown};
+module.exports = { server, shutdown };

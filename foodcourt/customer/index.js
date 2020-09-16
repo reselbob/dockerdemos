@@ -33,6 +33,8 @@ const handleRequest = async (request, response) => {
     const obj = JSON.parse(data);
     obj.customer = customer;
     const str = JSON.stringify(obj);
+    span.setTag(Tags.HTTP_STATUS_CODE, 200)
+    span.setTag('service_call_result', str)
     response.setHeader("Content-Type", "application/json");
     response.writeHead(200);
     response.end(str);
@@ -47,7 +49,8 @@ const callService = async (service, root_span, root_response) => {
     const span = tracer.startSpan('call_service', { childOf: root_span.context() });
     return request({ url, method, headers })
         .then(data => {
-            span.setTag('call_service_result', data)
+            span.setTag(Tags.HTTP_STATUS_CODE, 200)
+            span.setTag('service_call_result', data)
             span.finish();
             return data;
         }, e => {

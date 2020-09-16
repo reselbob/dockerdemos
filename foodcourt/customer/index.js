@@ -44,7 +44,7 @@ const callService = async (service, root_span, root_response) => {
     const method = 'GET';
     const headers = {};
     const url = `http://${service}:${port}`;
-    const span = tracer.startSpan('call_service, { childOf: root_span.context() });
+    const span = tracer.startSpan('call_service', { childOf: root_span.context() });
     return request({ url, method, headers })
         .then(data => {
             span.setTag('call_service_result', data)

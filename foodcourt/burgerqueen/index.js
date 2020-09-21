@@ -3,7 +3,7 @@ const port = process.env.APP_PORT || 3000;
 
 const initTracer = require('./tracer').initTracer;
 const { Tags, FORMAT_HTTP_HEADERS } = require('opentracing');
-const tracer = initTracer('foodcourt_burgerqueen');
+const tracer = initTracer('burgerqueen');
 
 const restaurant = 'Burger Queen';
 

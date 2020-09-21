@@ -47,6 +47,7 @@ const callService = async (service, root_span, root_response) => {
     const headers = {};
     const url = `http://${service}:${port}`;
     const span = tracer.startSpan('call_service', { childOf: root_span.context() });
+    tracer.inject(span, FORMAT_HTTP_HEADERS, headers);
     return request({ url, method, headers })
         .then(data => {
             span.setTag(Tags.HTTP_STATUS_CODE, 200)

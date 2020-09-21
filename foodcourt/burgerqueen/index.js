@@ -25,14 +25,14 @@ const shutdown = (signal) => {
 
 const server = http.createServer((request, response) => {
     parentSpanContext = tracer.extract(FORMAT_HTTP_HEADERS, request.headers)
-    const span = tracer.startSpan('burgerqueen_service_get', {
+    const span = tracer.startSpan('burgerqueen_service_request', {
         childOf: parentSpanContext,
         tags: { [Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER }
     });
     const order = sample(foods) ;
     span.setTag('indentified_order', order);
     span.log({
-        'event': 'burgerqueen_service_get',
+        'event': 'burgerqueen_service_request',
         'value': order
     });
     const str = JSON.stringify({restaurant, order});

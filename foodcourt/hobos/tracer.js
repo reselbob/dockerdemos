@@ -1,6 +1,7 @@
 const { initTracer: initJaegerTracer } = require("jaeger-client");
 
 module.exports.initTracer = serviceName => {
+  //for hobos
   const config = {
     serviceName: serviceName,
     sampler: {

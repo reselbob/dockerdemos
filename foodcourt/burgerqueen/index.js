@@ -35,7 +35,7 @@ const handleRequest = async (request, response) => {
 
     const order = sample(foods);
     const purchase = {service, item: order, amount: 0};
-    const data = await callPaymentService(purchase, span);
+    //const data = await callPaymentService(purchase, span);
     
     span.setTag('indentified_order', order);
     span.log({
@@ -57,7 +57,7 @@ const handleRequest = async (request, response) => {
 
     span.finish()
 }
-
+/*
 const callPaymentService = async (payload, root_span) => {
     const service = 'payments';
     const headers = {};
@@ -81,7 +81,7 @@ const callPaymentService = async (payload, root_span) => {
 
     return res;
 };
-
+*/
 const server = http.createServer(handleRequest);
 
 server.listen(port, (err) => {

@@ -41,7 +41,7 @@ const handleRequest = async (request, response) => {
     span.finish();
 };
 
-const callService = async (service, root_span, root_response) => {
+const callService = async (service, root_span) => {
     const method = 'GET';
     const headers = {};
     const url = `http://${service}:${port}`;

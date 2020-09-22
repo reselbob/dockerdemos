@@ -1,9 +1,12 @@
 const http = require('http');
+const axios = require('axios');
 const port = process.env.APP_PORT || 3000;
+
+const service = 'burgerqueen';
 
 const initTracer = require('./tracer').initTracer;
 const { Tags, FORMAT_HTTP_HEADERS } = require('opentracing');
-const tracer = initTracer('burgerqueen');
+const tracer = initTracer(service);
 
 const restaurant = 'Burger Queen';
 
@@ -22,7 +25,7 @@ const shutdown = (signal) => {
     })
 };
 
-const server = http.createServer((request, response) => {
+const handleRequest = async (request, response) => {
 
     parentSpanContext = tracer.extract(FORMAT_HTTP_HEADERS, request.headers)
     const span = tracer.startSpan('burgerqueen_service_request', {
@@ -30,8 +33,10 @@ const server = http.createServer((request, response) => {
         tags: { [Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER }
     });
 
-    const order = sample(foods) ;
-
+    const order = sample(foods);
+    const purchase = {service, item: order, amount: 0};
+    const paymentResp = await callPaymentService(purchase, span);
+    
     span.setTag('indentified_order', order);
     span.log({
         'event': 'burgerqueen_service_request',
@@ -47,7 +52,35 @@ const server = http.createServer((request, response) => {
     response.end(str);
 
     span.finish();
-}).listen(port, (err) => {
+}
+
+const callPaymentService = async (payload, root_span) => {
+    const service = 'payments';
+    const headers = {};
+    const url = `http://${service}:${port}`;
+    const span = tracer.startSpan('call_service', { childOf: root_span.context() });
+    tracer.inject(span, FORMAT_HTTP_HEADERS, headers);
+    const res = await axios.post(url, payload);
+    return await request({ url, method, headers, isJson, body })
+        .then(data => {
+            span.setTag(Tags.HTTP_STATUS_CODE, 200)
+            span.setTag('service_call_result', data)
+            span.finish();
+            return data;
+        }, e => {
+            span.setTag(Tags.ERROR, true)
+            span.log({
+                'event': 'error',
+                'error.object': e
+            });
+            span.finish();
+        });
+
+};
+
+const server = http.createServer(handleRequest);
+
+server.listen(port, (err) => {
     console.log(`${restaurant} API Server is started on ${port}  at ${new Date()} with pid ${process.pid}`);
 });
 

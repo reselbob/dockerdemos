@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Run mocha",
+        "type": "node",
+        "program": "${workspaceRoot}/foodcourt/payments/node_modules/bin/mocha",
+        "stopOnEntry": false,
+        "args": ["${workspaceRoot}/foodcourt/payments/test/api-test.js"],
+        "cwd": ".",
+        "runtimeExecutable": null,
+        "env": { "NODE_ENV": "production"}
+    }
+    ]
+  }

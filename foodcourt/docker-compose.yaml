@@ -22,6 +22,10 @@ services:
     build: ./iowafried
     networks:
       - westfield_mall
+  payments:
+    build: ./payments
+    networks:
+        - westfield_mall
   jaeger:
     image: jaegertracing/all-in-one:latest
     ports:

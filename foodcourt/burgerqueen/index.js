@@ -77,6 +77,7 @@ const callPaymentService = async (payload, root_span) => {
             span.finish();
         });
 
+    return res;
 };
 
 const server = http.createServer(handleRequest);

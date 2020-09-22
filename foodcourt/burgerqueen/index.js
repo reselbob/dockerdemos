@@ -43,8 +43,10 @@ const handleRequest = async (request, response) => {
         'value': order
     });
 
-    const obj = {restaurant, order, transactionId: data.transactionId, status: data.status}
-    const str = JSON.stringify(obj)
+    //const obj = {restaurant, order, transactionId: data.transactionId, status: data.status};
+    //const str = JSON.stringify({status: 200})
+
+    const str = "Hi there";
 
     span.setTag(Tags.HTTP_STATUS_CODE, 200)
     span.setTag('burgerqueen_call_result', str)

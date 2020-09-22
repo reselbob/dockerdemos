@@ -43,15 +43,17 @@ const handleRequest = async (request, response) => {
         'value': order
     });
 
-    const str = JSON.stringify({restaurant, order});
+    const obj = {restaurant, order, transactionId: paymentResp.body.transactionId, status: paymentResp.body.status}
+    const str = JSON.stringify(obj)
+
     span.setTag(Tags.HTTP_STATUS_CODE, 200)
     span.setTag('burgerqueen_call_result', str)
-    
+
     response.setHeader("Content-Type", "application/json");
     response.writeHead(200);
-    response.end(paymentResp.body);
+    response.end(str);
 
-    span.finish();
+    span.finish()
 }
 
 const callPaymentService = async (payload, root_span) => {

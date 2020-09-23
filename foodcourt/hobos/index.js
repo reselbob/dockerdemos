@@ -4,7 +4,8 @@ const request = require('request-promise');
 
 const initTracer = require('./tracer').initTracer;
 const { Tags, FORMAT_HTTP_HEADERS } = require('opentracing');
-const tracer = initTracer('hobos');
+const service = 'hobos';
+const tracer = initTracer(service);
 
 const restaurant = 'Howard Bonsons';
 
@@ -60,12 +61,12 @@ const handleRequest = async(request, response) => {
     });
 
     const order = sample(foods) ;
-
+    const purchase = { service, item: order, amount: 0 };
     const data = await callPaymentService(purchase, span,request);
 
     span.setTag('indentified_order', order);
     span.log({
-        'event': 'burgerqueen_service_request',
+        'event': 'hobos_service_request',
         'value': data
     });
 

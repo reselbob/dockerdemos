@@ -1,5 +1,4 @@
 const http = require('http');
-const axios = require('axios');
 const port = process.env.APP_PORT || 3000;
 
 const service = 'burgerqueen';

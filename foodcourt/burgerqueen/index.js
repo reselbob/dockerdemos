@@ -34,7 +34,7 @@ const handleRequest = async (request, response) => {
 
     const order = sample(foods);
     const purchase = {service, item: order, amount: 0};
-   // const data = await callPaymentService(purchase, span);
+   const data = await callPaymentService(purchase, span);
 
     span.setTag('indentified_order', order);
     span.log({
@@ -42,7 +42,7 @@ const handleRequest = async (request, response) => {
         'value': order
     });
 
-   let data = {restaurant, order, transactionId: 1, status:'OK'}
+   //let data = {restaurant, order, transactionId: 1, status:'OK'}
     const obj = {restaurant, order, transactionId: data.transactionId, status: data.status};
     const str = JSON.stringify(obj);
 

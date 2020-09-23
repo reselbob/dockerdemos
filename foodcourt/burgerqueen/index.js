@@ -46,10 +46,8 @@ const handleRequest = async (request, response) => {
     const obj = { restaurant, order };
     const str = JSON.stringify(obj);
 
-
     span.setTag(Tags.HTTP_STATUS_CODE, 200)
     span.setTag('burgerqueen_call_result', str)
-
 
     response.setHeader("Content-Type", "application/json");
     response.writeHead(200);
@@ -60,12 +58,10 @@ const handleRequest = async (request, response) => {
 
 const callPaymentService = async (payload, root_span, request) => {
     const service = 'payments';
-    const headers = request.headers;
     const url = `http://${service}:${port}`;
     const span = tracer.startSpan('call_service', { childOf: root_span.context() });
-    tracer.inject(span, FORMAT_HTTP_HEADERS, headers);
-
-    await axios.post(url, payload)
+    tracer.inject(span.context(), HTTP_HEADER_FORMAT, {});
+    await axios.post(url, payload, {})
         .then(res => {
             span.setTag(Tags.HTTP_STATUS_CODE, 200)
             span.setTag('service_call_result', res.data)

@@ -35,29 +35,30 @@ const handleRequest = async (request, response) => {
 
     const order = sample(foods);
     const purchase = {service, item: order, amount: 0};
-    //const data = await callPaymentService(purchase, span);
-    
+   // const data = await callPaymentService(purchase, span);
+
     span.setTag('indentified_order', order);
     span.log({
         'event': 'burgerqueen_service_request',
         'value': order
     });
 
-    //const obj = {restaurant, order, transactionId: data.transactionId, status: data.status};
-    //const str = JSON.stringify({status: 200})
+   let data = {restaurant: 'burgerqueen', order, transactionId: 1, status:'OK'}
+    const obj = {restaurant, order, transactionId: data.transactionId, status: data.status};
+    const str = JSON.stringify(obj);
 
-    const str = "Hi there";
 
     span.setTag(Tags.HTTP_STATUS_CODE, 200)
     span.setTag('burgerqueen_call_result', str)
+
 
     response.setHeader("Content-Type", "application/json");
     response.writeHead(200);
     response.end(str);
 
-    span.finish()
+    //span.finish()
 }
-/*
+
 const callPaymentService = async (payload, root_span) => {
     const service = 'payments';
     const headers = {};
@@ -78,10 +79,8 @@ const callPaymentService = async (payload, root_span) => {
             });
             span.finish();
         });
-
-    return res;
 };
-*/
+
 const server = http.createServer(handleRequest);
 
 server.listen(port, (err) => {

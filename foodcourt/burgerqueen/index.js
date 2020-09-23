@@ -67,8 +67,8 @@ const callPaymentService = async (payload, root_span, request) => {
     const span = tracer.startSpan('call_service', { childOf: root_span.context() });
     span.setTag(Tags.SPAN_KIND, Tags.SPAN_KIND_RPC_CLIENT);
     span.setTag('uber-trace-id', request.headers.uber-trace-id)
-    const uber-trace-id = request.headers.uber-trace-id;
-    const header = {uber-trace-id};
+    //const uber-trace-id = request.headers.uber-trace-id;
+    const header = {"uber-trace-id": request.headers.uber-trace-id};
     tracer.inject(span.context(), FORMAT_HTTP_HEADERS, header);
 
     await axios.post(url, payload, {header})

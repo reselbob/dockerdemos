@@ -64,10 +64,10 @@ const callPaymentService = async (payload, root_span, request) => {
     const span = tracer.startSpan('call_service', { childOf: root_span.context() });
     span.setTag(Tags.SPAN_KIND, Tags.SPAN_KIND_RPC_CLIENT);
     const headers = {};
-    tracer.inject(span.context(), FORMAT_HTTP_HEADERS, header);
+    tracer.inject(span.context(), FORMAT_HTTP_HEADERS, headers);
     span.log({
         'event':'call_service_header',
-        'value':JSON.stringify( header)
+        'value':JSON.stringify( headers)
     });
 
     const method = 'GET';

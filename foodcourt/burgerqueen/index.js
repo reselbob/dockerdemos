@@ -27,12 +27,10 @@ const shutdown = (signal) => {
 
 const handleRequest = async (request, response) => {
     parentSpanContext = tracer.extract(FORMAT_HTTP_HEADERS, request.headers)
-    const span = tracer.startSpan('burgerqueen_service_request', {
+    const span = tracer.startSpan('restaurant_service_request', {
         childOf: parentSpanContext,
         tags: { [Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER,  'business_group': 'restaurant'}
     });
-
-    //span.setTag('business_group', 'restaurant');
 
     span.log({
         'event': 'request_headers',

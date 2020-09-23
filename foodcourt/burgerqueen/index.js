@@ -33,7 +33,7 @@ const handleRequest = async (request, response) => {
     });
 
     span.log({
-        'event': 'burgerqueen_request_headers',
+        'event': 'request_headers',
         'value': request.headers
     });
 

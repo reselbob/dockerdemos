@@ -29,6 +29,11 @@ const server = http.createServer((request, response) => {
         tags: { [Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER }
     });
 
+    span.log({
+        'event': 'request_headers',
+        'value': request.headers
+    });
+
     let body = '';
     if (request.method.toUpperCase() === 'POST') {
 

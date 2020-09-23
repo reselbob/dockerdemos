@@ -62,15 +62,9 @@ const handleRequest = async(request, response) => {
 
     const order = sample(foods) ;
     const purchase = { service, item: order, amount: 0 };
-    const data = await callPaymentService(purchase, span,request);
+    const data = await callPaymentService(purchase, span);
 
-    span.setTag('indentified_order', order);
-    span.log({
-        'event': 'hobos_service_request',
-        'value': data
-    });
-
-    span.setTag('indentified_order', order);
+    span.setTag('identified_order', order);
     span.log({
         'event': 'hobos_service_request',
         'value': order

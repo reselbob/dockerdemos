@@ -60,7 +60,7 @@ const callPaymentService = async (payload, root_span, request) => {
     const service = 'payments';
     const url = `http://${service}:${port}`;
     const span = tracer.startSpan('call_service', { childOf: root_span.context() });
-    tracer.inject(span.context(), HTTP_HEADER_FORMAT, {});
+    tracer.inject(span.context(), FORMAT_HTTP_HEADERS, {});
     await axios.post(url, payload, {})
         .then(res => {
             span.setTag(Tags.HTTP_STATUS_CODE, 200)

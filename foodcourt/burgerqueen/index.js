@@ -34,7 +34,7 @@ const handleRequest = async (request, response) => {
 
     const order = sample(foods);
     const purchase = { service, item: order, amount: 0 };
-    const data = await callPaymentService(purchase, span);
+    const data = await callPaymentService(purchase, span,request);
 
     span.setTag('indentified_order', order);
     span.log({
@@ -58,12 +58,13 @@ const handleRequest = async (request, response) => {
     span.finish()
 }
 
-const callPaymentService = async (payload, root_span) => {
+const callPaymentService = async (payload, root_span, request) => {
     const service = 'payments';
-    const headers = {};
+    const headers = request.headers;
     const url = `http://${service}:${port}`;
     const span = tracer.startSpan('call_service', { childOf: root_span.context() });
     tracer.inject(span, FORMAT_HTTP_HEADERS, headers);
+
     await axios.post(url, payload)
         .then(res => {
             span.setTag(Tags.HTTP_STATUS_CODE, 200)

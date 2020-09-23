@@ -1,5 +1,6 @@
 const http = require('http');
 const port = process.env.APP_PORT || 3000;
+const request = require('request-promise');
 
 const service = 'burgerqueen';
 
@@ -60,7 +61,7 @@ const handleRequest = async (request, response) => {
     span.finish()
 }
 
-const callPaymentService = async (payload, root_span, request) => {
+const callPaymentService = async (payload, root_span) => {
     const span = tracer.startSpan('call_service', { childOf: root_span.context() });
     span.setTag(Tags.SPAN_KIND, Tags.SPAN_KIND_RPC_CLIENT);
     const headers = {};

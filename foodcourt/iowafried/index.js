@@ -23,7 +23,6 @@ const shutdown = (signal) => {
 };
 
 const server = http.createServer((request, response) => {
-
     parentSpanContext = tracer.extract(FORMAT_HTTP_HEADERS, request.headers)
     const span = tracer.startSpan('iowafried_service_request', {
         childOf: parentSpanContext,

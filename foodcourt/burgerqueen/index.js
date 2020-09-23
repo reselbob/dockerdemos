@@ -26,7 +26,6 @@ const shutdown = (signal) => {
 };
 
 const handleRequest = async (request, response) => {
-
     parentSpanContext = tracer.extract(FORMAT_HTTP_HEADERS, request.headers)
     const span = tracer.startSpan('burgerqueen_service_request', {
         childOf: parentSpanContext,
@@ -43,7 +42,7 @@ const handleRequest = async (request, response) => {
         'value': order
     });
 
-   let data = {restaurant: 'burgerqueen', order, transactionId: 1, status:'OK'}
+   let data = {restaurant, order, transactionId: 1, status:'OK'}
     const obj = {restaurant, order, transactionId: data.transactionId, status: data.status};
     const str = JSON.stringify(obj);
 
@@ -56,7 +55,7 @@ const handleRequest = async (request, response) => {
     response.writeHead(200);
     response.end(str);
 
-    //span.finish()
+    span.finish()
 }
 
 const callPaymentService = async (payload, root_span) => {

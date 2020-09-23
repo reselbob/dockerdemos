@@ -21,6 +21,11 @@ const handleRequest = async (request, response) => {
         tags: { [Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER }
     });
 
+    span.log({
+        'event': 'request_headers',
+        'value': request.headers
+    });
+
     const service = sample(services);
     span.setTag('indentified_service', service);
     span.log({

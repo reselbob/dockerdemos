@@ -28,7 +28,6 @@ const server = http.createServer((request, response) => {
         childOf: parentSpanContext,
         tags: { [Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER }
     });
-    span.setTag('uber-trace-id', request.headers['uber-trace-id']);
     span.log({
         'event': 'request_headers',
         'value': request.headers
@@ -62,6 +61,17 @@ const server = http.createServer((request, response) => {
 
             span.finish();
         });
+    }
+    if (request.method.toUpperCase() === 'GET'){
+        const obj = {paymentStatus: 'PAID'};
+        const str = JSON.stringify(obj));
+        span.setTag(Tags.HTTP_STATUS_CODE, 200)
+        span.setTag('payment_call_result', str)
+       
+        response.setHeader("Content-Type", "application/json");
+        response.writeHead(200);
+        response.end(str);
+        span.finish();
     }
 }).listen(port, (err) => {
     console.log(`${service} API Server is started on ${port}  at ${new Date()} with pid ${process.pid}`);

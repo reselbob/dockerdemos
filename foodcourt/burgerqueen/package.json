@@ -9,7 +9,8 @@
   "author": "Bob Reselman <reselbob@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.20.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
     "jaeger-client": "^3.10.0",
     "opentracing": "latest"
   },

@@ -62,25 +62,24 @@ const handleRequest = async (request, response) => {
 }
 
 const callPaymentService = async (payload, root_span, request) => {
-    const service = 'payments';
-    const url = `http://${service}:${port}`;
     const span = tracer.startSpan('call_service', { childOf: root_span.context() });
     span.setTag(Tags.SPAN_KIND, Tags.SPAN_KIND_RPC_CLIENT);
-    span.setTag('uber-trace-id', request.headers['uber-trace-id'])
-    const header = {"uber-trace-id": request.headers['uber-trace-id']};
+    const headers = {};
     tracer.inject(span.context(), FORMAT_HTTP_HEADERS, header);
     span.log({
         'event':'call_service_header',
         'value':JSON.stringify( header)
     });
 
-
-    await axios.post(url, payload, {header})
-        .then(res => {
+    const method = 'GET';
+    const service = 'payments';
+    const url = `http://${service}:${port}`;
+    return request({ url, method, headers })
+        .then(data => {
             span.setTag(Tags.HTTP_STATUS_CODE, 200)
-            span.setTag('service_call_result', res.data)
+            span.setTag('service_call_result', data)
             span.finish();
-            return res.data;
+            return data;
         }, e => {
             span.setTag(Tags.ERROR, true)
             span.log({

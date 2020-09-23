@@ -12,12 +12,12 @@ const restaurant = 'Burger Queen';
 
 const foods = ['burger', 'fries', 'whooper', 'onion rings']
 
-const sample = (items) => {return items[Math.floor(Math.random()*items.length)];};
+const sample = (items) => { return items[Math.floor(Math.random() * items.length)]; };
 
 const shutdown = (signal) => {
-    if(!signal){
+    if (!signal) {
         console.log(`${restaurant} API Server shutting down at ${new Date()}`);
-    }else{
+    } else {
         console.log(`Signal ${signal} : ${restaurant} API Server shutting down at ${new Date()}`);
     }
     server.close(function () {
@@ -33,17 +33,17 @@ const handleRequest = async (request, response) => {
     });
 
     const order = sample(foods);
-    const purchase = {service, item: order, amount: 0};
-   const data = await callPaymentService(purchase, span);
+    const purchase = { service, item: order, amount: 0 };
+    const data = await callPaymentService(purchase, span);
 
     span.setTag('indentified_order', order);
     span.log({
         'event': 'burgerqueen_service_request',
-        'value': order
+        'value': data
     });
 
-   //let data = {restaurant, order, transactionId: 1, status:'OK'}
-    const obj = {restaurant, order, transactionId: data.transactionId, status: data.status};
+    //let data = {restaurant, order, transactionId: 1, status:'OK'}
+    const obj = { restaurant, order };
     const str = JSON.stringify(obj);
 
 
@@ -95,4 +95,4 @@ process.on('SIGINT', function () {
 });
 
 
-module.exports = {server, shutdown};
+module.exports = { server, shutdown };

@@ -61,6 +61,12 @@ const handleRequest = async (request, response) => {
         tags: { [Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER }
     });
 
+    span.setTag('business_group', 'restaurant');
+
+    span.log({
+        'event': 'request_headers',
+        'value': request.headers
+    });
     const order = sample(foods) ;
 
     const purchase = { service, item: order, amount: 0 };

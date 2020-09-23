@@ -30,6 +30,9 @@ const server = http.createServer((request, response) => {
         childOf: parentSpanContext,
         tags: {[Tags.SPAN_KIND]: Tags.SPAN_KIND_RPC_SERVER}
     });
+
+    span.setTag('business_group', 'banking');
+
     span.log({
         'event': 'request_headers',
         'value': request.headers

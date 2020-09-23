@@ -1,5 +1,6 @@
 'use strict';
 const supertest = require('supertest');
+const axios = require('axios');
 const chai = require('chai');
 const expect = require('chai').expect;
 const describe = require('mocha').describe;
@@ -25,4 +26,15 @@ describe('API Tests: ', () => {
             })
             .catch(done);
     });
+    it('Can POST via Axios', async (done) =>{
+        const url = 'http://localhost:3000';
+        const payload = {service: "iowafried", item: 'burger', amount: 3.25};
+        const resData = await axios.post(url, payload)
+        .then(data => {
+            return data;
+        }, e => {
+            done(e)
+        });
+        expect(resData.data.status).to.equal('PAID');
+    })
 });
